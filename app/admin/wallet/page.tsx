@@ -13,28 +13,28 @@ export default function page() {
         <div className="bg-card p-4 rounded-2xl shadow-md border-l-8 border-white">
             <label className="block mb-2 ms-2 text-lg font-semibold text-blue-500">USDT ERC20 Wallet Address</label>
             <div className="flex items-center">
-                <input type="text" value="0x8dc26F31a76B20E795FID50DA5e0d0da691Cb44B" className="flex-1 p-4 border-2 border-zinc-700 rounded-full bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                <input type="text" value="0x8dc26F31a76B20E795FID50DA5e0d0da691Cb44B" className="text-white flex-1 p-4 border-2 border-zinc-700 rounded-full bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-400" />
                 <button className="ml-2 bg-accent text-black bg-blue-500 px-4 py-4 rounded-full hover:bg-blue-800 hover:text-white transition transform hover:scale-105">Change address</button>
             </div>
         </div>
         <div className="bg-card p-4 rounded-2xl shadow-md border-l-8 border-white">
             <label className="block mb-2 ms-2 text-lg font-semibold text-blue-500">USDT TRC20 Wallet Address</label>
             <div className="flex items-center">
-                <input type="text" value="TYdCy2SzzWeEE2TqKKMK3BgRwWsh6dmv4g" className="flex-1 p-4 border-2 border-zinc-700 rounded-full bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                <input type="text" value="TYdCy2SzzWeEE2TqKKMK3BgRwWsh6dmv4g" className="text-white flex-1 p-4 border-2 border-zinc-700 rounded-full bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-400" />
                 <button className="ml-2 bg-accent text-black bg-blue-500 px-4 py-4 rounded-full hover:bg-blue-800 hover:text-white transition transform hover:scale-105">Change address</button>
             </div>
         </div>
         <div className="bg-card p-4 rounded-2xl shadow-md border-l-8 border-white">
             <label className="block mb-2 ms-2 text-lg font-semibold text-blue-500">BTC Wallet Address</label>
             <div className="flex items-center">
-                <input type="text" value="bc1qupu9ktheltq9knqa0nay3wum5uj5wzkxx52xl" className="flex-1 p-4 border-2 border-zinc-700 rounded-full bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                <input type="text" value="bc1qupu9ktheltq9knqa0nay3wum5uj5wzkxx52xl" className="text-white flex-1 p-4 border-2 border-zinc-700 rounded-full bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-400" />
                 <button className="ml-2 bg-accent text-black bg-blue-500 px-4 py-4 rounded-full hover:bg-blue-800 hover:text-white transition transform hover:scale-105">Change address</button>
             </div>
         </div>
         <div className="bg-card p-4 rounded-2xl shadow-md border-l-8 border-white">
             <label className="block mb-2 ms-2 text-lg font-semibold text-blue-500">ETH Wallet Address</label>
             <div className="flex items-center">
-                <input type="text" value="0x8dc26F31a76B20E795FID50DA5e0d0da691Cb44B" className="flex-1 p-4 border-2 border-zinc-700 rounded-full bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                <input type="text" value="0x8dc26F31a76B20E795FID50DA5e0d0da691Cb44B" className="text-white flex-1 p-4 border-2 border-zinc-700 rounded-full bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-400" />
                 <button className="ml-2 bg-accent text-black bg-blue-500 px-4 py-4 rounded-full hover:bg-blue-800 hover:text-white transition transform hover:scale-105">Change address</button>
             </div>
         </div>
