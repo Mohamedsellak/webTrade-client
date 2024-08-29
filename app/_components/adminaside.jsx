@@ -44,7 +44,7 @@ export default function Sidebar() {
             </button>
           </div>
           <nav className="flex flex-col flex-1 w-64 ps-2 mt-6 text-white">
-            <a href="/admin/users" className="flex items-center justify-start text-xl p-2 mt-3 rounded-full bg-white border border-green-500 text-black ">
+            <a href="/admin/users" className="flex items-center justify-start text-xl p-2 mt-3 rounded-full bg-white border border-blue-500 text-black ">
               <span className="p-4 border rounded-full bg-black text-white">
               <FaUsers className="w-6 h-6" />
               </span>

@@ -3,11 +3,9 @@ import Nav from "./_components/guestNav";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-cover" style={{ backgroundImage:"url('/assets/images/grid.png')" }}>
+    <main className="min-h-screen bg-cover bg-black">
       <Nav />
-      <div>
-        the rest of the content
-      </div>
+      <div></div>
     </main>
   );
 }
