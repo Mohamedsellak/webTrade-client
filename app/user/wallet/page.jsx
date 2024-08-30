@@ -76,7 +76,7 @@ const Page = () => {
                                 <td className="px-4 py-3">
                                     <span
                                         className={`px-2 py-1 font-semibold leading-tight rounded-full ${
-                                            item.status === 'Approved'
+                                            item.status === 'approved'
                                                 ? 'bg-blue-500 text-white'
                                                 : item.status === 'pending'
                                                 ? 'bg-yellow-500 text-white'

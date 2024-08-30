@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import AddModel from "../_components/models/wallet/addModel";
 import EditModel from "../_components/models/wallet/editModel";
+import { FaTrash } from 'react-icons/fa';
 
 export default function Page() {
   const [wallets, setWallets] = useState([]);
@@ -27,6 +28,26 @@ export default function Page() {
       console.log(error);
     } finally {
       console.log('Fetching wallets done');
+    }
+  };
+  
+  const handleDelete = async (walletId) => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wallets/${walletId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': localStorage.getItem('token'),
+        },
+      });
+      if (response.ok) {
+        handleRefresh()
+      } else {
+        throw new Error('Failed to delete wallets');
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
     }
   };
 
@@ -89,6 +110,13 @@ export default function Page() {
                 }}
               >
                 Change Address
+              </button>
+
+              <button 
+                className="ml-2 text-black bg-white px-4 py-4 border-2 border-white rounded-full hover:bg-black hover:text-white transition transform hover:scale-105"
+                onClick={()=> handleDelete(wallet._id)}
+              >
+                <FaTrash className="h-5 w-5" />
               </button>
             </div>
           </div>

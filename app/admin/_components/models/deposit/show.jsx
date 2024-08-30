@@ -15,7 +15,7 @@ export default function DepositDetails({ isOpenModel, onClose, refresh, depositI
           'Content-Type': 'application/json',
           'auth-token': localStorage.getItem('token'),
         },
-        body: JSON.stringify({ status }),
+        body: JSON.stringify({ status,userId:depositInfo.userId }),
       });
 
       if (response.ok) {
@@ -67,22 +67,26 @@ export default function DepositDetails({ isOpenModel, onClose, refresh, depositI
             )}
           </div>
 
-          <div className="flex justify-between mt-8">
-            <button
-              type="button"
-              className="p-4 bg-green-500 text-white rounded-full w-1/2 mr-2 hover:bg-green-400 flex justify-center items-center"
-              onClick={() => handleSubmit('approved')}
-            >
-              Approve
-            </button>
-            <button
-              type="button"
-              className="p-4 bg-red-500 text-white rounded-full w-1/2 ml-2 hover:bg-red-400 flex justify-center items-center"
-              onClick={() => handleSubmit('rejected')}
-            >
-              Reject
-            </button>
-          </div>
+          {
+            depositInfo.status === "pending" &&
+            <div className="flex justify-between mt-8">
+              <button
+                type="button"
+                className="p-4 bg-green-500 text-white rounded-full w-1/2 mr-2 hover:bg-green-400 flex justify-center items-center"
+                onClick={() => handleSubmit('approved')}
+              >
+                Approve
+              </button>
+              <button
+                type="button"
+                className="p-4 bg-red-500 text-white rounded-full w-1/2 ml-2 hover:bg-red-400 flex justify-center items-center"
+                onClick={() => handleSubmit('rejected')}
+              >
+                Reject
+              </button>
+            </div>
+          }
+
         </div>
       </div>
     </div>

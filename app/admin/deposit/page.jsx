@@ -1,39 +1,39 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import ShowModel from "../_components/models/deposit/show"
-
-
+import ShowModel from "../_components/models/deposit/show";
 
 const Page = () => {
     const [deposits, setDeposits] = useState([]);
-    const [showModelStatus,setShowModelStatus] = useState(false)
-    const [depositInfo,setDepositInfo] = useState({})
+    const [showModelStatus, setShowModelStatus] = useState(false);
+    const [depositInfo, setDepositInfo] = useState({});
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/deposit`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': localStorage.getItem("token")
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setDeposits(data);
+            } else {
+                console.error('Failed to fetch deposit data');
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/deposit`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'auth-token': localStorage.getItem("token")
-                    }
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    setDeposits(data);
-                } else {
-                    console.error('Failed to fetch deposit data');
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
         fetchData();
     }, []);
 
-    const handleDelete = async (depositId,userId) => {
+    const handleRefresh = () => fetchData();
+
+    const handleDelete = async (depositId, userId) => {
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/deposit/${depositId}`, {
                 method: 'DELETE',
@@ -41,14 +41,16 @@ const Page = () => {
                     'Content-Type': 'application/json',
                     'auth-token': localStorage.getItem("token")
                 },
-                body:JSON.stringify({userId})
+                body: JSON.stringify({ userId })
             });
 
             if (response.ok) {
-                setDeposits(prevDeposits => prevDeposits.map(user => ({
-                    ...user,
-                    deposit: user.deposit.filter(deposit => deposit._id !== depositId)
-                })));
+                setDeposits(prevDeposits =>
+                    prevDeposits.map(user => ({
+                        ...user,
+                        deposit: user.deposit.filter(deposit => deposit._id !== depositId)
+                    }))
+                );
             } else {
                 console.error('Failed to delete deposit');
             }
@@ -81,23 +83,23 @@ const Page = () => {
                                     <td className="px-4 py-3">{deposit.amount}</td>
                                     <td className="px-4 py-3">
                                         <div className="flex items-center justify-center space-x-4">
-                                            
                                             <button 
                                                 className="px-4 py-2 text-sm font-medium leading-5 bg-blue-700 text-blue-100 rounded-full hover:bg-blue-800 transition"
-                                                onClick={()=>{
-                                                    setShowModelStatus(true)
+                                                onClick={() => {
+                                                    setShowModelStatus(true);
                                                     setDepositInfo({
                                                         ...deposit,
-                                                        username:user.username,
-                                                        email:user.email,
-                                                        totalBalance:user.totalBalance
-                                                    })
+                                                        userId: user._id,
+                                                        username: user.username,
+                                                        email: user.email,
+                                                        totalBalance: user.totalBalance
+                                                    });
                                                 }}
                                             >
                                                 Open
                                             </button>
                                             <button
-                                                onClick={() => handleDelete(deposit._id,user._id)}
+                                                onClick={() => handleDelete(deposit._id, user._id)}
                                                 className="px-4 py-2 text-sm font-medium leading-5 bg-red-700 text-red-100 rounded-full hover:bg-red-800 transition"
                                             >
                                                 Delete
@@ -116,18 +118,20 @@ const Page = () => {
     return (
         <div className="bg-background text-foreground p-6 rounded-lg shadow-lg lg:p-20">
             <div className="flex items-center justify-between mb-8">
-                <h2 className="text-4xl font-bold mb-6 text-white">Deposit History</h2>
-                <div>
-                    <button className="text-base px-5 py-3 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-white" onClick={() => {/* Add refresh logic here */}}>
-                        Refresh
-                    </button>
-                </div>
+                <h2 className="text-4xl font-bold mb-6 text-white">Deposit History</h2> 
+                <button 
+                    className="text-base px-5 py-3 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-black" 
+                    onClick={handleRefresh}
+                >
+                    Refresh
+                </button>
             </div>
 
             <ShowModel 
                 isOpenModel={showModelStatus}
-                onClose={()=>setShowModelStatus(false)}
+                onClose={() => setShowModelStatus(false)}
                 depositInfo={depositInfo}
+                refresh={handleRefresh}
             />
 
             <div className="w-full overflow-hidden shadow-xs bg-card border rounded-2xl border-zinc-700 p-4 mb-4" style={{ backgroundColor: "#151617" }}>
@@ -141,7 +145,6 @@ const Page = () => {
             <div className="w-full overflow-hidden shadow-xs bg-card border rounded-2xl border-zinc-700 p-4 mb-4" style={{ backgroundColor: "#151617" }}>
                 {renderTable('Rejected', deposits)}
             </div>
-
         </div>
     );
 };
