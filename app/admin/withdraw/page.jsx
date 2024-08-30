@@ -1,37 +1,68 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import WithdrawDetails from "../_components/models/withdraw/show"; // Adjust the path if needed
 
-const page = () => {
-    const [withdraw, setewithdraw] = useState([]);
+const Page = () => {
+    const [withdraws, setWithdraws] = useState([]);
+    const [showModelStatus, setShowModelStatus] = useState(false);
+    const [withdrawInfo, setWithdrawInfo] = useState({});
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/withdraw`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': localStorage.getItem("token")
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setWithdraws(data);
+            } else {
+                console.error('Failed to fetch withdraw data');
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/withdraw`,{
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'auth-token': localStorage.getItem("token")
-                    }
-                }); // Replace with your actual API endpoint
-
-                if (response.ok) {
-                    const data = await response.json();
-                    setewithdraw(data);
-                } else {
-                    console.error('Failed to fetch deposit data');
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
         fetchData();
     }, []);
 
+    const handleRefresh = () => fetchData();
+
+    const handleDelete = async (withdrawId, userId) => {
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/withdraw/${withdrawId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': localStorage.getItem("token")
+                },
+                body: JSON.stringify({ userId })
+            });
+
+            if (response.ok) {
+                setWithdraws(prevWithdraws =>
+                    prevWithdraws.map(user => ({
+                        ...user,
+                        withdraw: user.withdraw.filter(withdraw => withdraw._id !== withdrawId)
+                    }))
+                );
+            } else {
+                console.error('Failed to delete withdraw');
+            }
+        } catch (error) {
+            console.error('Error deleting withdraw:', error);
+        }
+    };
+
     const renderTable = (title, data) => (
         <div>
-            <h3 className="text-2xl font-semibold text-white mb-4">{title} Withdraw</h3>
+            <h3 className="text-2xl font-semibold text-white mb-4">{title} Withdraws</h3>
             <div className="w-full overflow-x-auto">
                 <table className="w-full border border-zinc-700 text-center">
                     <thead>
@@ -53,10 +84,25 @@ const page = () => {
                                     <td className="px-4 py-3">{withdraw.amount}</td>
                                     <td className="px-4 py-3">
                                         <div className="flex items-center justify-center space-x-4">
-                                            <button className="px-4 py-2 text-sm font-medium leading-5 bg-blue-700 text-blue-100 rounded-full hover:bg-blue-800 transition">
+                                            <button 
+                                                className="px-4 py-2 text-sm font-medium leading-5 bg-blue-700 text-blue-100 rounded-full hover:bg-blue-800 transition"
+                                                onClick={() => {
+                                                    setShowModelStatus(true);
+                                                    setWithdrawInfo({
+                                                        ...withdraw,
+                                                        userId: user._id,
+                                                        username: user.username,
+                                                        email: user.email,
+                                                        totalBalance: user.totalBalance
+                                                    });
+                                                }}
+                                            >
                                                 Open
                                             </button>
-                                            <button className="px-4 py-2 text-sm font-medium leading-5 bg-red-700 text-red-100 rounded-full hover:bg-red-800 transition">
+                                            <button
+                                                onClick={() => handleDelete(withdraw._id, user._id)}
+                                                className="px-4 py-2 text-sm font-medium leading-5 bg-red-700 text-red-100 rounded-full hover:bg-red-800 transition"
+                                            >
                                                 Delete
                                             </button>
                                         </div>
@@ -74,30 +120,34 @@ const page = () => {
         <div className="bg-background text-foreground p-6 rounded-lg shadow-lg lg:p-20">
             <div className="flex items-center justify-between mb-8">
                 <h2 className="text-4xl font-bold mb-6 text-white">Withdraw History</h2>
-                <div>
-                    <button className="text-base px-5 py-3 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-white" onClick={() => {/* Add refresh logic here */}}>
-                        Refresh
-                    </button>
-                </div>
+                <button 
+                    className="text-base px-5 py-3 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-black" 
+                    onClick={handleRefresh}
+                >
+                    Refresh
+                </button>
+            </div>
+
+            <WithdrawDetails 
+                isOpenModel={showModelStatus}
+                onClose={() => setShowModelStatus(false)}
+                withdrawInfo={withdrawInfo}
+                refresh={handleRefresh}
+            />
+
+            <div className="w-full overflow-hidden shadow-xs bg-card border rounded-2xl border-zinc-700 p-4 mb-4" style={{ backgroundColor: "#151617" }}>
+                {renderTable('Pending', withdraws)}
             </div>
 
             <div className="w-full overflow-hidden shadow-xs bg-card border rounded-2xl border-zinc-700 p-4 mb-4" style={{ backgroundColor: "#151617" }}>
-                {/* Render the Pending withdraw Table */}
-                {renderTable('Pending', withdraw)}
+                {renderTable('Approved', withdraws)}
             </div>
 
             <div className="w-full overflow-hidden shadow-xs bg-card border rounded-2xl border-zinc-700 p-4 mb-4" style={{ backgroundColor: "#151617" }}>
-                {/* Render the Approved withdraw Table */}
-                {renderTable('Approved', withdraw)}
+                {renderTable('Rejected', withdraws)}
             </div>
-
-            <div className="w-full overflow-hidden shadow-xs bg-card border rounded-2xl border-zinc-700 p-4 mb-4" style={{ backgroundColor: "#151617" }}>
-                {/* Render the Rejected withdraw Table */}
-                {renderTable('Rejected', withdraw)}
-            </div>
-
         </div>
     );
 };
 
-export default page;
+export default Page;
