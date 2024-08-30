@@ -23,22 +23,22 @@ const Nav = () => {
         <div className="hidden md:flex justify-center flex-1">
           <ul className="flex space-x-8 text-gray-400 text-lg">
             <li>
-              <Link href="/" className="hover:text-blue-500 ">
+              <Link href="/" className="hover:text-white ">
                 Home
               </Link>
             </li>
             <li>
-              <Link href="/about" className="hover:text-blue-500">
+              <Link href="/about" className="hover:text-white">
                 About
               </Link>
             </li>
             <li>
-              <Link href="/services" className="hover:text-blue-500">
+              <Link href="/services" className="hover:text-white">
                 Services
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="hover:text-blue-500">
+              <Link href="/contact" className="hover:text-white">
                 Contact
               </Link>
             </li>
@@ -47,10 +47,10 @@ const Nav = () => {
         
         {/* Sign In/Sign Up */}
         <div className="hidden md:flex items-center space-x-4 text-lg">
-          <Link href="/auth/signin" className="bg-transparent text-blue-500 border-2 border-blue-500 rounded-full px-7 py-3 hover:bg-blue-500 hover:text-black">
+          <Link href="/auth/signin" className="bg-transparent text-white border-2 border-white rounded-full px-7 py-3 hover:bg-white hover:text-black">
             Sign In
           </Link>
-          <Link href="/auth/signup" className="bg-transparent text-blue-500 border-2 border-blue-500 rounded-full px-7 py-3 hover:bg-blue-500 hover:text-black">
+          <Link href="/auth/signup" className="bg-transparent text-white border-2 border-white rounded-full px-7 py-3 hover:bg-white hover:text-black">
             Sign Up
           </Link>
         </div>
@@ -76,22 +76,22 @@ const Nav = () => {
       {
         openMobileMenu && (
             <div className="md:hidden flex flex-col items-center space-y-2 text-white p-4 border-t-2 border-white text-lg">
-                <Link href="/" className="py-2 w-full text-center hover:text-blue-500">
+                <Link href="/" className="py-2 w-full text-center hover:text-white">
                 Home
                 </Link>
-                <Link href="/#about" className="py-2 w-full text-center hover:text-blue-500">
+                <Link href="/#about" className="py-2 w-full text-center hover:text-white">
                 About
                 </Link>
-                <Link href="/#services" className="py-2 w-full text-center hover:text-blue-500">
+                <Link href="/#services" className="py-2 w-full text-center hover:text-white">
                 Services
                 </Link>
-                <Link href="/#contact" className="py-2 w-full text-center hover:text-blue-500">
+                <Link href="/#contact" className="py-2 w-full text-center hover:text-white">
                 Contact
                 </Link>
-                <Link href="/auth/signin" className="py-2 w-full text-center text-blue-500 border-2 border-blue-500 rounded-full hover:bg-blue-500 hover:text-black">
+                <Link href="/auth/signin" className="py-2 w-full text-center text-white border-2 border-white rounded-full hover:bg-white hover:text-white">
                 Sign In
                 </Link>
-                <Link href="/auth/signup" className="py-2 w-full text-center text-blue-500 border-2 border-blue-500 rounded-full hover:bg-blue-500 hover:text-black">
+                <Link href="/auth/signup" className="py-2 w-full text-center text-white border-2 border-white rounded-full hover:bg-white hover:text-white">
                 Sign Up
                 </Link>
             </div>

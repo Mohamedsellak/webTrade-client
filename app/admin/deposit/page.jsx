@@ -1,19 +1,23 @@
 "use client";
-
 import React, { useEffect, useState } from 'react';
+import ShowModel from "../_components/models/deposit/show"
 
-const page = () => {
+
+
+const Page = () => {
     const [deposits, setDeposits] = useState([]);
+    const [showModelStatus,setShowModelStatus] = useState(false)
+    const [depositInfo,setDepositInfo] = useState({})
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/deposit`,{
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/deposit`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'auth-token': localStorage.getItem("token")
                     }
-                }); // Replace with your actual API endpoint
+                });
 
                 if (response.ok) {
                     const data = await response.json();
@@ -28,6 +32,30 @@ const page = () => {
 
         fetchData();
     }, []);
+
+    const handleDelete = async (depositId,userId) => {
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/deposit/${depositId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': localStorage.getItem("token")
+                },
+                body:JSON.stringify({userId})
+            });
+
+            if (response.ok) {
+                setDeposits(prevDeposits => prevDeposits.map(user => ({
+                    ...user,
+                    deposit: user.deposit.filter(deposit => deposit._id !== depositId)
+                })));
+            } else {
+                console.error('Failed to delete deposit');
+            }
+        } catch (error) {
+            console.error('Error deleting deposit:', error);
+        }
+    };
 
     const renderTable = (title, data) => (
         <div>
@@ -53,10 +81,25 @@ const page = () => {
                                     <td className="px-4 py-3">{deposit.amount}</td>
                                     <td className="px-4 py-3">
                                         <div className="flex items-center justify-center space-x-4">
-                                            <button className="px-4 py-2 text-sm font-medium leading-5 bg-blue-700 text-blue-100 rounded-full hover:bg-blue-800 transition">
+                                            
+                                            <button 
+                                                className="px-4 py-2 text-sm font-medium leading-5 bg-blue-700 text-blue-100 rounded-full hover:bg-blue-800 transition"
+                                                onClick={()=>{
+                                                    setShowModelStatus(true)
+                                                    setDepositInfo({
+                                                        ...deposit,
+                                                        username:user.username,
+                                                        email:user.email,
+                                                        totalBalance:user.totalBalance
+                                                    })
+                                                }}
+                                            >
                                                 Open
                                             </button>
-                                            <button className="px-4 py-2 text-sm font-medium leading-5 bg-red-700 text-red-100 rounded-full hover:bg-red-800 transition">
+                                            <button
+                                                onClick={() => handleDelete(deposit._id,user._id)}
+                                                className="px-4 py-2 text-sm font-medium leading-5 bg-red-700 text-red-100 rounded-full hover:bg-red-800 transition"
+                                            >
                                                 Delete
                                             </button>
                                         </div>
@@ -73,26 +116,29 @@ const page = () => {
     return (
         <div className="bg-background text-foreground p-6 rounded-lg shadow-lg lg:p-20">
             <div className="flex items-center justify-between mb-8">
-                <h2 className="text-4xl font-bold mb-6 text-blue-500">Deposit History</h2>
+                <h2 className="text-4xl font-bold mb-6 text-white">Deposit History</h2>
                 <div>
-                    <button className="text-base px-5 py-3 bg-transparent text-blue-500 border-2 border-blue-500 rounded-full hover:bg-blue-500 hover:text-black" onClick={() => {/* Add refresh logic here */}}>
+                    <button className="text-base px-5 py-3 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-white" onClick={() => {/* Add refresh logic here */}}>
                         Refresh
                     </button>
                 </div>
             </div>
 
+            <ShowModel 
+                isOpenModel={showModelStatus}
+                onClose={()=>setShowModelStatus(false)}
+                depositInfo={depositInfo}
+            />
+
             <div className="w-full overflow-hidden shadow-xs bg-card border rounded-2xl border-zinc-700 p-4 mb-4" style={{ backgroundColor: "#151617" }}>
-                {/* Render the Pending Deposits Table */}
                 {renderTable('Pending', deposits)}
             </div>
 
             <div className="w-full overflow-hidden shadow-xs bg-card border rounded-2xl border-zinc-700 p-4 mb-4" style={{ backgroundColor: "#151617" }}>
-                {/* Render the Approved Deposits Table */}
                 {renderTable('Approved', deposits)}
             </div>
 
             <div className="w-full overflow-hidden shadow-xs bg-card border rounded-2xl border-zinc-700 p-4 mb-4" style={{ backgroundColor: "#151617" }}>
-                {/* Render the Rejected Deposits Table */}
                 {renderTable('Rejected', deposits)}
             </div>
 
@@ -100,4 +146,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default Page;

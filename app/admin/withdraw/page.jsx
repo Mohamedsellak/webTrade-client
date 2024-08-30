@@ -73,9 +73,9 @@ const page = () => {
     return (
         <div className="bg-background text-foreground p-6 rounded-lg shadow-lg lg:p-20">
             <div className="flex items-center justify-between mb-8">
-                <h2 className="text-4xl font-bold mb-6 text-blue-500">Withdraw History</h2>
+                <h2 className="text-4xl font-bold mb-6 text-white">Withdraw History</h2>
                 <div>
-                    <button className="text-base px-5 py-3 bg-transparent text-blue-500 border-2 border-blue-500 rounded-full hover:bg-blue-500 hover:text-black" onClick={() => {/* Add refresh logic here */}}>
+                    <button className="text-base px-5 py-3 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-white" onClick={() => {/* Add refresh logic here */}}>
                         Refresh
                     </button>
                 </div>

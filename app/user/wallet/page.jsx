@@ -103,12 +103,12 @@ const Page = () => {
                 <h1 className='text-4xl font-bold'>Total Balance : {JSON.parse(localStorage.getItem("authData")).totalBalance}$</h1>
                 <div >
                     <button 
-                        className='text-base px-5 py-3 me-4 bg-transparent text-blue-500 border-2 border-blue-500 rounded-full hover:bg-blue-500 hover:text-black transition duration-300'
+                        className='text-base px-5 py-3 me-4 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-white transition duration-300'
                         onClick={()=> setDepositModelStatus(true)}
                     >deposit</button>
 
                     <button 
-                        className='text-base px-5 py-3 bg-transparent text-blue-500 border-2 border-blue-500 rounded-full hover:bg-blue-500 hover:text-black transition duration-300'
+                        className='text-base px-5 py-3 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-white transition duration-300'
                         onClick={()=> setWithdrawModelStatus(true)}
                     >Withdraw</button>
                 </div>
@@ -126,7 +126,7 @@ const Page = () => {
                 refresh={()=>setRefresh(true)}
             />
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
                 <div className="p-5 rounded-xl shadow-md border border-gray-700">
                     {renderTable('Deposits', depositData)}
                 </div>

@@ -44,13 +44,13 @@ export default function UserProfile() {
 
       <div className='flex items-center justify-start mb-3'>
         <button
-          className={`text-base px-5 py-3 me-4 bg-transparent text-blue-500 border-2 border-blue-500 rounded-full hover:bg-blue-500 hover:text-black transition duration-300 ${profilePage === 0 ? 'bg-blue-500 text-black' : ''}`}
+          className={`text-base px-5 py-3 me-4 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-white transition duration-300 ${profilePage === 0 ? 'bg-blue-500 text-black' : ''}`}
           onClick={() => setProfilePage(0)}
         >
           Account Info
         </button>
         <button
-          className={`text-base px-5 py-3 me-4 bg-transparent text-blue-500 border-2 border-blue-500 rounded-full hover:bg-blue-500 hover:text-black transition duration-300 ${profilePage === 1 ? 'bg-blue-500 text-black' : ''}`}
+          className={`text-base px-5 py-3 me-4 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-white transition duration-300 ${profilePage === 1 ? 'bg-blue-500 text-black' : ''}`}
           onClick={() => setProfilePage(1)}
         >
           Account Settings

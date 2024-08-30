@@ -13,10 +13,10 @@ export default function AccountInfo({ userData }) {
             src="/assets/images/avatar.jpg"
             alt={`Profile Picture of ${userData.username}`}
           />
-          <h2 className="text-3xl font-extrabold mt-4 text-blue-500">{userData.username}</h2>
+          <h2 className="text-3xl font-extrabold mt-4 text-white">{userData.username}</h2>
           <p className="text-lg text-primary-foreground my-4 flex items-center justify-center">
             <span className='p-2 border-2 rounded-full'>{userData._id}</span>
-            <span className='ml-2 p-4 rounded-full hover:bg-blue-500 hover:text-white'>
+            <span className='ml-2 p-4 rounded-full hover:bg-white hover:text-white'>
               <FaRegCopy className='h-5 w-5 '/>
             </span>
           </p>

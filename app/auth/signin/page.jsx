@@ -61,7 +61,7 @@ export default function Page() {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground m-4">
-            <h1 className="m-2 text-4xl font-bold text-blue-500">Sign in</h1>
+            <h1 className="m-2 text-4xl font-bold text-white">Sign in</h1>
 
             <form className="w-full max-w-sm mt-6" onSubmit={handleSubmit}>
                 <label className="block text-xl text-muted-foreground">Email</label>
@@ -70,7 +70,7 @@ export default function Page() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email"
-                    className="bg-transparent mt-2 p-4 border-2 border-blue-900 rounded-full w-full outline-none focus:ring focus:ring-blue-500"
+                    className="bg-transparent mt-2 p-4 border-2 border-zinc-600 rounded-full w-full outline-none focus:ring focus:ring-white focus:border-none"
                     disabled={isSubmitting}
                 />
 
@@ -81,7 +81,7 @@ export default function Page() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="Enter your password"
-                        className="bg-transparent mt-2 p-4 border-2 border-blue-900 rounded-full w-full outline-none focus:ring focus:ring-blue-500"
+                        className="bg-transparent mt-2 p-4 border-2 border-zinc-600 rounded-full w-full outline-none focus:ring focus:ring-white focus:border-none"
                         disabled={isSubmitting}
                     />
                     <span className="absolute right-4 top-7 cursor-pointer" onClick={() => setShowPassword(!showPassword)}>
@@ -93,12 +93,12 @@ export default function Page() {
 
                 <button
                     type="submit"
-                    className="mt-8 p-4 bg-blue-500 text-white rounded-full w-full hover:bg-blue-400 flex justify-center items-center"
+                    className="mt-8 p-4 border-2 bg-white text-black rounded-full w-full hover:bg-black hover:border-white hover:text-white flex justify-center items-center"
                     disabled={isSubmitting}
                 >
                     {isSubmitting ? (
                         <div className="flex items-center">
-                            <div className="h-6 w-6 border-4 border-white border-l-blue-600 animate-spin rounded-full mr-3">
+                            <div className="h-6 w-6 border-4 border-blue-500 border-l-blue-600 animate-spin rounded-full mr-3">
                             </div>
                             Signing In...
                         </div>
@@ -121,6 +121,7 @@ export default function Page() {
                     Sign up
                 </Link>
             </div>
+
         </div>
     )
 }

@@ -89,7 +89,7 @@ export default function Deposit({ isOpenModel, onClose ,refresh}) {
     <div className="fixed inset-0 z-50 flex items-center justify-center w-full h-full max-h-full bg-gray-900 bg-opacity-70">
       <div className="p-4 w-full max-w-2xl rounded-2xl shadow-lg shadow-gray-600" style={{ backgroundColor:"#212325" }}>
         <div className="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
-          <h3 className="text-3xl font-semibold text-blue-500">
+          <h3 className="text-3xl font-semibold text-white">
             Deposit Funds
           </h3>
           <button

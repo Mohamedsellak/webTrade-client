@@ -7,7 +7,7 @@ export default function userheader({title}) {
     const user = JSON.parse(localStorage.getItem("authData"))
   return (
     <div className='flex items-center justify-between mt-4 lg:mb-20'>
-        <h1 className='text-4xl font-bold text-blue-500'>{title}</h1>
+        <h1 className='text-4xl font-bold text-white'>{title}</h1>
         <div className=' flex items-center justify-around rounded-full px-6 py-2' style={{ backgroundColor:"#151617" }}>
             <span className='textt-lg font-bold me-10'>{user.username}</span>
             <span className='textt-lg font-bold me-10'>ID : {user._id}</span>

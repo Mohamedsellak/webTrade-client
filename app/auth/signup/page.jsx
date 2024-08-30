@@ -66,7 +66,7 @@ export default function SignUp() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground m-4">
-      <h1 className="m-2 text-4xl font-bold text-blue-500">Sign Up</h1>
+      <h1 className="m-2 text-4xl font-bold text-white">Sign Up</h1>
       
       <form className="w-full max-w-sm mt-6" onSubmit={handleSubmit}>
         <label className="block text-xl text-muted-foreground">username</label>
@@ -125,7 +125,7 @@ export default function SignUp() {
         </button>
         
         <p className="mt-4 text-muted-foreground text-center">
-          <Link href="/auth/signin" className="text-blue-500 hover:underline">Already have an account? Sign In</Link>
+          <Link href="/auth/signin" className="text-white hover:underline">Already have an account? Sign In</Link>
         </p>
       </form>
     </div>

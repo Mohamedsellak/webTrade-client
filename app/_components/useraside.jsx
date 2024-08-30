@@ -35,7 +35,7 @@ export default function Sidebar() {
             {/* Logo */}
             <Link href="#" className="py-4 flex items-center justify-center">
               <Image src="/assets/images/icon.png" height={40} width={40} alt="Logo" />
-              <span className="ps-4 text-2xl text-blue-500 font-bold">WebTrade</span>
+              <span className="ps-4 text-2xl text-white font-bold">WebTrade</span>
             </Link>
             {/* Close btn */}
             <button
@@ -46,7 +46,7 @@ export default function Sidebar() {
             </button>
           </div>
           <nav className="flex flex-col flex-1 w-64 ps-2 mt-6 text-white">
-            <a href="/user/dashboard" className="flex items-center justify-start text-xl p-2 mt-3 rounded-full bg-white border border-blue-500 text-black ">
+            <a href="/user/dashboard" className="flex items-center justify-start text-xl p-2 mt-3 rounded-full bg-blue-500 border border-white text-black ">
               <span className="p-4 border rounded-full bg-black text-white">
               <RiDashboardLine className="w-6 h-6" />
               </span>
