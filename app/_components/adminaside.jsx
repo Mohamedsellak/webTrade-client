@@ -2,11 +2,23 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+import Cookies from "js-cookie"
 import { FaBars, FaTimes, FaHome, FaUsers, FaWallet, FaUserShield, FaChartLine, FaMoneyCheckAlt } from 'react-icons/fa';
 import { PiHandWithdrawFill } from 'react-icons/pi';
 
+
 export default function Sidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const logOut = ()=>{
+    // Remove the token and auth data from localStorage
+    localStorage.removeItem('token');
+    localStorage.removeItem('authData');
+
+    // Remove the token and auth data from cookies
+    Cookies.remove('authData');
+    location.href = "/"
+  }
 
   return (
     <>
@@ -73,7 +85,10 @@ export default function Sidebar() {
             {/* Add more navigation items here */}
           </nav>
           <div className="flex-shrink-0 p-4">
-            <button className="flex items-center space-x-2 text-white hover:text-red-500">
+            <button 
+              className="flex items-center space-x-2 text-white hover:text-red-500"
+              onClick={()=>logOut()}
+            >
               <FaTimes className="w-6 h-6" />
               <span className="ps-4">Logout</span>
             </button>

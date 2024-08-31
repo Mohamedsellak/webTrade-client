@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { FaEyeSlash, FaEye } from "react-icons/fa"
+import Cookies from "js-cookie"
 
 export default function Page() {
     const [email, setEmail] = useState('')
@@ -45,6 +46,9 @@ export default function Page() {
                 // console.log('Sign-in successful:', data)
                 localStorage.setItem("token", data.token)
                 localStorage.setItem("authData", JSON.stringify(data.authData))
+                // Save the token in a cookie
+                Cookies.set('authData', JSON.stringify(data.authData), { expires: 1 }); // Expires in 7 days
+
                 // Redirect or perform other actions
                 window.location.href = `/${data.authData.role}`
             } else {

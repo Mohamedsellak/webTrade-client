@@ -1,53 +1,49 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from 'react';
-import UserHeader from "../_components/userheader"
-import DepositModel from "../_components/depositModel"
-import WithdrawModel from "../_components/withdrawModel"
+import UserHeader from "../_components/userheader";
+import DepositModel from "../_components/depositModel";
+import WithdrawModel from "../_components/withdrawModel";
 
 const Page = () => {
-
     const [depositData, setDepositData] = useState([]);
     const [withdrawData, setWithdrawData] = useState([]);
+    const [depositModelStatus, setDepositModelStatus] = useState(false);
+    const [withdrawModelStatus, setWithdrawModelStatus] = useState(false);
+    const [error, setError] = useState(''); // Added error state
 
-    const [depositModelStatus,setDepositModelStatus] =useState(false)
-    const [withdrawModelStatus,setWithdrawModelStatus] =useState(false)
+    const fetchData = async () => {
+        try {
 
-    const [refresh,setRefresh] =useState(false)
+            const token = localStorage.getItem("token") || "";
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/profile`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': token,
+                },
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                localStorage.setItem("authData", JSON.stringify(data));
+                setDepositData(data.deposit || []);
+                setWithdrawData(data.withdraw || []);
+            } else {
+                const errorData = await response.json();
+                setError(errorData.message || 'Failed to fetch data');
+                console.log(errorData);
+            }
+        } catch (error) {
+            console.error('Fetching data failed:', error);
+            setError('An error occurred while fetching data.');
+        }
+    };
 
     useEffect(() => {
-        setRefresh(false)
-        const fetchData = async () => {
-            try {
-                const token = localStorage.getItem("token") || ""
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/profile`,{
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'auth-token': token
-                    },
-                });
-
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    localStorage.removeItem("authData")
-                    localStorage.setItem("authData",JSON.stringify(data))
-                    
-                    // console.log(data);
-                    setDepositData(data.deposit || []);
-                    setWithdrawData(data.withdraw || []);
-                }else{
-                    console.log(response.json())
-                }
-                
-            } catch (error) {
-                console.error('Fetching data failed:', error);
-            }
-        };
-
         fetchData();
-    }, [refresh]);
-    
+    }, []);
+
+    const handleRefresh = () => fetchData();
 
     const renderTable = (title, data) => (
         <div className="w-full p-4">
@@ -62,32 +58,33 @@ const Page = () => {
                         </tr>
                     </thead>
                     <tbody className="bg-transparent">
-                        {data.length === 0 && (
+                        {data.length === 0 ? (
                             <tr>
                                 <td colSpan="3" className="text-gray-400 py-4">
                                     No data available
                                 </td>
                             </tr>
+                        ) : (
+                            data.map((item, index) => (
+                                <tr key={index} className="text-gray-400">
+                                    <td className="px-4 py-3">{item.amount}</td>
+                                    <td className="px-4 py-3">{item.date}</td>
+                                    <td className="px-4 py-3">
+                                        <span
+                                            className={`px-2 py-1 font-semibold leading-tight rounded-full ${
+                                                item.status === 'approved'
+                                                    ? 'bg-blue-500 text-white'
+                                                    : item.status === 'pending'
+                                                    ? 'bg-yellow-500 text-white'
+                                                    : 'bg-red-500 text-white'
+                                            }`}
+                                        >
+                                            {item.status}
+                                        </span>
+                                    </td>
+                                </tr>
+                            ))
                         )}
-                        {data.map((item, index) => (
-                            <tr key={index} className="text-gray-400">
-                                <td className="px-4 py-3">{item.amount}</td>
-                                <td className="px-4 py-3">{item.date}</td>
-                                <td className="px-4 py-3">
-                                    <span
-                                        className={`px-2 py-1 font-semibold leading-tight rounded-full ${
-                                            item.status === 'approved'
-                                                ? 'bg-blue-500 text-white'
-                                                : item.status === 'pending'
-                                                ? 'bg-yellow-500 text-white'
-                                                : 'bg-red-500 text-white'
-                                        }`}
-                                    >
-                                        {item.status}
-                                    </span>
-                                </td>
-                            </tr>
-                        ))}
                     </tbody>
                 </table>
             </div>
@@ -95,35 +92,37 @@ const Page = () => {
     );
 
     return (
-        <div className="text-gray-100 p-6 rounded-lg shadow-lg lg:p-20 lg:pt-4"> 
-
-            <UserHeader title={"Wallet"}/>
+        <div className="text-gray-100 p-6 rounded-lg shadow-lg lg:p-20 lg:pt-4">
+            <UserHeader title={"Wallet"} />
 
             <div className='flex justify-between items-center mb-10'>
-                <h1 className='text-4xl font-bold'>Total Balance : {JSON.parse(localStorage.getItem("authData")).totalBalance}$</h1>
-                <div >
+                <h1 className='text-4xl font-bold'>Total Balance: ${JSON.parse(localStorage.getItem("authData")).totalBalance}</h1>
+                <div>
                     <button 
                         className='text-base px-5 py-3 me-4 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-white transition duration-300'
-                        onClick={()=> setDepositModelStatus(true)}
-                    >deposit</button>
+                        onClick={() => setDepositModelStatus(true)}
+                    >
+                        Deposit
+                    </button>
 
                     <button 
                         className='text-base px-5 py-3 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-white transition duration-300'
-                        onClick={()=> setWithdrawModelStatus(true)}
-                    >Withdraw</button>
+                        onClick={() => setWithdrawModelStatus(true)}
+                    >
+                        Withdraw
+                    </button>
                 </div>
             </div>
 
-
             <DepositModel 
                 isOpenModel={depositModelStatus} 
-                onClose={()=>setDepositModelStatus(false) }
-                refresh={()=>setRefresh(true)}
+                onClose={() => setDepositModelStatus(false)}
+                refresh={handleRefresh}
             />
             <WithdrawModel 
                 isOpenModel={withdrawModelStatus} 
-                onClose={()=>{setWithdrawModelStatus(false)}}
-                refresh={()=>setRefresh(true)}
+                onClose={() => setWithdrawModelStatus(false)}
+                refresh={handleRefresh}
             />
 
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
