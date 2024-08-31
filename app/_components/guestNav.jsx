@@ -10,35 +10,36 @@ const Nav = () => {
     const [openMobileMenu,setOpenMobileMenu] = useState(false)
 
   return (
-    <nav className="fixed w-full z-20 top-0 start-0 bg-opacity-60 backdrop-blur-sm">
-      <div className="flex items-center justify-between lg:mx-24 md:mx-16 px-4 py-6">
+    <nav className="fixed w-full z-20 top-0 start-0 backdrop-blur-sm bg-white shadow-md shadow-gray-300">
+      <div className="flex items-center justify-between px-4 py-6">
         {/* Logo */}
         <div className="flex items-center">
-          <Link href="/">
-            <Image src="/assets/images/logo.svg" height={150} width={150} alt="Logo" />
+          <Link href="/" className='text-black uppercase text-2xl font-extrabold'>
+            PrimeWebTrade
+            {/* <Image src="/assets/images/logo.svg" height={150} width={150} alt="Logo" /> */}
           </Link>
         </div>
         
         {/* Center Links */}
         <div className="hidden md:flex justify-center flex-1">
-          <ul className="flex space-x-8 text-gray-400 text-lg">
+          <ul className="flex space-x-8 text-black font-bold text-lg">
             <li>
-              <Link href="/" className="hover:text-white ">
+              <Link href="/" className="hover:text-gray-400 ">
                 Home
               </Link>
             </li>
             <li>
-              <Link href="/about" className="hover:text-white">
+              <Link href="/about" className="hover:text-gray-400">
                 About
               </Link>
             </li>
             <li>
-              <Link href="/services" className="hover:text-white">
+              <Link href="/services" className="hover:text-gray-400">
                 Services
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="hover:text-white">
+              <Link href="/contact" className="hover:text-gray-400">
                 Contact
               </Link>
             </li>
@@ -47,10 +48,10 @@ const Nav = () => {
         
         {/* Sign In/Sign Up */}
         <div className="hidden md:flex items-center space-x-4 text-lg">
-          <Link href="/auth/signin" className="bg-transparent text-white border-2 border-white rounded-full px-7 py-3 hover:bg-white hover:text-black">
+          <Link href="/auth/signin" className="bg-transparent text-black border-2 border-black rounded-full px-7 py-3 hover:bg-black hover:text-gray-400">
             Sign In
           </Link>
-          <Link href="/auth/signup" className="bg-transparent text-white border-2 border-white rounded-full px-7 py-3 hover:bg-white hover:text-black">
+          <Link href="/auth/signup" className="bg-black text-white border-2 border-black rounded-full px-7 py-3 hover:bg-white hover:text-black">
             Sign Up
           </Link>
         </div>
@@ -59,7 +60,7 @@ const Nav = () => {
         <div className="md:hidden flex items-center">
           <button 
             data-collapse-toggle="navbar-sticky" 
-            type="button" className="p-2 text-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            type="button" className="p-2 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
             onClick={()=>setOpenMobileMenu(!openMobileMenu)}
           >
             {
@@ -76,22 +77,22 @@ const Nav = () => {
       {
         openMobileMenu && (
             <div className="md:hidden flex flex-col items-center space-y-2 text-white p-4 border-t-2 border-white text-lg">
-                <Link href="/" className="py-2 w-full text-center hover:text-white">
+                <Link href="/" className="text-black py-2 w-full text-center hover:text-gray-500">
                 Home
                 </Link>
-                <Link href="/#about" className="py-2 w-full text-center hover:text-white">
+                <Link href="/#about" className="text-black py-2 w-full text-center hover:text-gray-500">
                 About
                 </Link>
-                <Link href="/#services" className="py-2 w-full text-center hover:text-white">
+                <Link href="/#services" className="text-black py-2 w-full text-center hover:text-gray-500">
                 Services
                 </Link>
-                <Link href="/#contact" className="py-2 w-full text-center hover:text-white">
+                <Link href="/#contact" className="text-black py-2 w-full text-center hover:text-gray-500">
                 Contact
                 </Link>
-                <Link href="/auth/signin" className="py-2 w-full text-center text-white border-2 border-white rounded-full hover:bg-white hover:text-white">
+                <Link href="/auth/signin" className="py-2 w-full text-center text-black border-2 border-black rounded-full hover:bg-black hover:text-white">
                 Sign In
                 </Link>
-                <Link href="/auth/signup" className="py-2 w-full text-center text-white border-2 border-white rounded-full hover:bg-white hover:text-white">
+                <Link href="/auth/signup" className="py-2 w-full text-center text-white bg-black border-2 border-black rounded-full hover:bg-white hover:text-black">
                 Sign Up
                 </Link>
             </div>
