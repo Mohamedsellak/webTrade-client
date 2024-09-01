@@ -14,7 +14,8 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("")
+    setSuccess("")
     
     // Simple validation
     if (!username || !email || !password) {
@@ -65,42 +66,42 @@ export default function SignUp() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground m-4">
-      <h1 className="m-2 text-4xl font-bold text-white">Sign Up</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-white text-black">
+      <h1 className="m-2 text-4xl font-bold text-black">Sign Up</h1>
       
       <form className="w-full max-w-sm mt-6" onSubmit={handleSubmit}>
-        <label className="block text-xl text-muted-foreground">username</label>
+        <label className="block text-xl text-zinc-600">username</label>
         <input 
           type="text" 
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Enter your username" 
-          className="bg-transparent mt-2 p-4 border-2 border-blue-900 rounded-full w-full outline-none focus:ring focus:ring-blue-500"
+          className="bg-transparent mt-2 p-4 border-2 border-zinc-400 rounded-full w-full outline-none focus:border-black"
           disabled={isSubmitting}
         />
         
-        <label className="block text-xl text-muted-foreground mt-4">Email</label>
+        <label className="block text-xl text-zinc-600 mt-4">Email</label>
         <input 
           type="email" 
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email" 
-          className="bg-transparent mt-2 p-4 border-2 border-blue-900 rounded-full w-full outline-none focus:ring focus:ring-blue-500"
+          className="bg-transparent mt-2 p-4 border-2 border-zinc-400 rounded-full w-full outline-none focus:border-black"
           disabled={isSubmitting}
         />
         
-        <label className="block text-xl text-muted-foreground mt-4">Password</label>
+        <label className="block text-xl text-zinc-600 mt-4">Password</label>
         <div className="relative">
           <input 
             type={showPassword ? "text" : "password"} 
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your password" 
-            className="bg-transparent mt-2 p-4 border-2 border-blue-900 rounded-full w-full outline-none focus:ring focus:ring-blue-500"
+            className="bg-transparent mt-2 p-4 border-2 border-zinc-400 rounded-full w-full outline-none focus:border-black"
             disabled={isSubmitting}
           />
           <span 
-            className="absolute right-4 top-7 cursor-pointer" 
+            className="absolute right-4 top-7 cursor-pointer text-black" 
             onClick={() => setShowPassword(!showPassword)}>
             {showPassword ? <FaEye className='h-5 w-5' /> : <FaEyeSlash className='h-5 w-5' />}
           </span>
@@ -111,12 +112,12 @@ export default function SignUp() {
 
         <button
           type="submit"
-          className="mt-8 p-4 bg-blue-500 text-white rounded-full w-full hover:bg-blue-400 flex justify-center items-center"
+          className="mt-8 p-4 border-2 bg-black text-white rounded-full w-full hover:bg-white hover:border-black hover:text-black flex justify-center items-center"
           disabled={isSubmitting}
         >
           {isSubmitting ? (
             <div className="flex items-center">
-              <div className="w-5 h-5 border-4 border-t-transparent border-white border-solid rounded-full animate-spin mr-3"></div>
+              <div className="h-6 w-6 border-4 border-blue-500 border-l-blue-600 animate-spin rounded-full mr-3"></div>
               <span>Signing Up...</span>
             </div>
           ) : (
@@ -125,7 +126,7 @@ export default function SignUp() {
         </button>
         
         <p className="mt-4 text-muted-foreground text-center">
-          <Link href="/auth/signin" className="text-white hover:underline">Already have an account? Sign In</Link>
+          <Link href="/auth/signin" className="text-black hover:underline">Already have an account?</Link>
         </p>
       </form>
     </div>

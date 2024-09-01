@@ -19,6 +19,12 @@ export default function Page() {
         e.preventDefault()
         setError('')
 
+        // Simple validation
+        if (!email || !password) {
+            setError('Please fill out all fields.');
+            return;
+        }
+
         if (!validateEmail(email)) {
             setError('Please enter a valid email address.')
             return
@@ -43,7 +49,6 @@ export default function Page() {
             const data = await response.json()
             if (response.ok && data) {
                 // Handle successful sign-in
-                // console.log('Sign-in successful:', data)
                 localStorage.setItem("token", data.token)
                 localStorage.setItem("authData", JSON.stringify(data.authData))
                 // Save the token in a cookie
@@ -51,6 +56,7 @@ export default function Page() {
 
                 // Redirect or perform other actions
                 window.location.href = `/${data.authData.role}`
+                
             } else {
                 setError(data || 'Sign-in failed. Please try again.')
             }
@@ -64,31 +70,31 @@ export default function Page() {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground m-4">
-            <h1 className="m-2 text-4xl font-bold text-white">Sign in</h1>
+        <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground bg-white text-black">
+            <h1 className="m-2 text-4xl font-bold text-black">Sign in</h1>
 
             <form className="w-full max-w-sm mt-6" onSubmit={handleSubmit}>
-                <label className="block text-xl text-muted-foreground">Email</label>
+                <label className="block text-xl text-zinc-500">Email</label>
                 <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email"
-                    className="bg-transparent mt-2 p-4 border-2 border-zinc-600 rounded-full w-full outline-none focus:ring focus:ring-white focus:border-none"
+                    className="bg-transparent mt-2 p-4 border-2 border-zinc-400 rounded-full w-full outline-none focus:border-black"
                     disabled={isSubmitting}
                 />
 
-                <label className="block text-xl text-muted-foreground mt-4">Password</label>
+                <label className="block text-xl text-zinc-500 mt-4">Password</label>
                 <div className="relative">
                     <input
                         type={showPassword ? 'text' : 'password'}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="Enter your password"
-                        className="bg-transparent mt-2 p-4 border-2 border-zinc-600 rounded-full w-full outline-none focus:ring focus:ring-white focus:border-none"
+                        className="bg-transparent mt-2 p-4 border-2 border-zinc-400 rounded-full w-full outline-none focus:border-black"
                         disabled={isSubmitting}
                     />
-                    <span className="absolute right-4 top-7 cursor-pointer" onClick={() => setShowPassword(!showPassword)}>
+                    <span className="absolute right-4 top-7 cursor-pointer text-black" onClick={() => setShowPassword(!showPassword)}>
                         {showPassword ? <FaEye className="h-5 w-5" /> : <FaEyeSlash className="h-5 w-5" />}
                     </span>
                 </div>
@@ -97,14 +103,14 @@ export default function Page() {
 
                 <button
                     type="submit"
-                    className="mt-8 p-4 border-2 bg-white text-black rounded-full w-full hover:bg-black hover:border-white hover:text-white flex justify-center items-center"
+                    className="mt-8 p-4 border-2 bg-black text-white rounded-full w-full hover:bg-white hover:border-black hover:text-black flex justify-center items-center"
                     disabled={isSubmitting}
                 >
                     {isSubmitting ? (
                         <div className="flex items-center">
                             <div className="h-6 w-6 border-4 border-blue-500 border-l-blue-600 animate-spin rounded-full mr-3">
                             </div>
-                            Signing In...
+                            <span>Signing In...</span>
                         </div>
                     ) : (
                         "Sign in"
@@ -114,17 +120,17 @@ export default function Page() {
 
                     
 
+                <div className="flex justify-between items-center mt-4">
+                    <Link href="/auth/forgotPassword" className="text-black hover:underline">
+                        Forgot your password?
+                    </Link>
+                    <Link href="/auth/signup" className="text-black hover:underline">
+                        Sign up
+                    </Link>
+                </div>
                 
             </form>
 
-            <div className="flex justify-between items-center mt-4 text-muted-foreground text-center">
-                <Link href="/auth/forgotPassword" className="text-blue-500 hover:underline">
-                    Forgot your password?
-                </Link>
-                <Link href="/auth/signup" className="text-blue-500 hover:underline">
-                    Sign up
-                </Link>
-            </div>
 
         </div>
     )

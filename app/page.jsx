@@ -1,4 +1,5 @@
 import Nav from "./_components/guestNav";
+import TradingViewWidget from "./_components/test"
 
 export default function Home() {
   return (
@@ -62,6 +63,12 @@ export default function Home() {
           <button></button>
           <button></button>
         </div>
+
+        {/* <div className="h-screen w-screen">
+
+        <TradingViewWidget />
+        </div> */}
+
       </div>
     </main>
   );

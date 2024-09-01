@@ -11,7 +11,7 @@ const Nav = () => {
 
   return (
     <nav className="fixed w-full z-20 top-0 start-0 backdrop-blur-sm bg-white shadow-md shadow-gray-300">
-      <div className="flex items-center justify-between px-4 py-6">
+      <div className="flex items-center justify-between px-4 py-4">
         {/* Logo */}
         <div className="flex items-center">
           <Link href="/" className='text-black uppercase text-2xl font-extrabold'>
@@ -48,7 +48,7 @@ const Nav = () => {
         
         {/* Sign In/Sign Up */}
         <div className="hidden md:flex items-center space-x-4 text-lg">
-          <Link href="/auth/signin" className="bg-transparent text-black border-2 border-black rounded-full px-7 py-3 hover:bg-black hover:text-gray-400">
+          <Link href="/auth/signin" className="bg-transparent text-black border-2 border-black rounded-full px-7 py-3 hover:bg-black hover:text-white">
             Sign In
           </Link>
           <Link href="/auth/signup" className="bg-black text-white border-2 border-black rounded-full px-7 py-3 hover:bg-white hover:text-black">
