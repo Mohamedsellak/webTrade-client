@@ -1,4 +1,4 @@
-import Sidebar from "../_components/adminaside";
+import Sidebar from "./_components/adminaside";
 export default function AdminLayout({ children }) {
     return (
       <div className="flex h-screen overflow-x-auto antialiased" style={{ backgroundColor:"#0d0d0d" }}>

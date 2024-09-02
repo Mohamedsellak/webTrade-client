@@ -52,7 +52,7 @@ export default function Page() {
                 localStorage.setItem("token", data.token)
                 localStorage.setItem("authData", JSON.stringify(data.authData))
                 // Save the token in a cookie
-                Cookies.set('authData', JSON.stringify(data.authData), { expires: 1 }); // Expires in 7 days
+                Cookies.set('authData', JSON.stringify(data.authData), { expires: 1 });
 
                 // Redirect or perform other actions
                 window.location.href = `/${data.authData.role}`
