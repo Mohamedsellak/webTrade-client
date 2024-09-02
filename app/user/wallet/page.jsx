@@ -1,19 +1,18 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import UserHeader from "../_components/userheader";
-import DepositModel from "../_components/depositModel";
-import WithdrawModel from "../_components/withdrawModel";
+import DepositModel from "../_components/models/depositModel";
+import WithdrawModel from "../_components/models/withdrawModel";
 
 const Page = () => {
     const [depositData, setDepositData] = useState([]);
     const [withdrawData, setWithdrawData] = useState([]);
     const [depositModelStatus, setDepositModelStatus] = useState(false);
     const [withdrawModelStatus, setWithdrawModelStatus] = useState(false);
-    const [error, setError] = useState(''); // Added error state
+    const [error, setError] = useState('');
 
     const fetchData = async () => {
         try {
-
             const token = localStorage.getItem("token") || "";
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/profile`, {
                 method: 'GET',
@@ -47,7 +46,7 @@ const Page = () => {
 
     const renderTable = (title, data) => (
         <div className="w-full p-4">
-            <h3 className="text-2xl font-semibold text-white mb-4">{title}</h3>
+            <h3 className="text-lg sm:text-2xl font-semibold text-white mb-4">{title}</h3>
             <div className="w-full overflow-x-auto">
                 <table className="min-w-full border border-zinc-700 text-center">
                     <thead>
@@ -92,21 +91,23 @@ const Page = () => {
     );
 
     return (
-        <div className="text-gray-100 p-6 rounded-lg shadow-lg lg:p-20 lg:pt-4">
+        <div className="text-white p-6 lg:p-10 lg:pt-4">
             <UserHeader title={"Wallet"} />
 
-            <div className='flex justify-between items-center mb-10'>
-                <h1 className='text-4xl font-bold'>Total Balance: ${JSON.parse(localStorage.getItem("authData")).totalBalance}</h1>
+            <div className='flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10'>
+                <h1 className='text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-0'>
+                    Total Balance: ${JSON.parse(localStorage.getItem("authData")).totalBalance}
+                </h1>
                 <div>
                     <button 
-                        className='text-base px-5 py-3 me-4 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-white transition duration-300'
+                        className='text-sm sm:text-base px-4 py-2 me-4 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-black transition duration-300 mb-4 sm:mb-0'
                         onClick={() => setDepositModelStatus(true)}
                     >
                         Deposit
                     </button>
 
                     <button 
-                        className='text-base px-5 py-3 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-white transition duration-300'
+                        className='text-sm sm:text-base px-4 py-2 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-black transition duration-300'
                         onClick={() => setWithdrawModelStatus(true)}
                     >
                         Withdraw
@@ -125,7 +126,7 @@ const Page = () => {
                 refresh={handleRefresh}
             />
 
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
                 <div className="p-5 rounded-xl shadow-md border border-gray-700">
                     {renderTable('Deposits', depositData)}
                 </div>

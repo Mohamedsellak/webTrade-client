@@ -2,25 +2,36 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import Cookies from "js-cookie"
-import { FaBars,FaEye, FaTimes, FaWallet} from 'react-icons/fa';
+import Cookies from "js-cookie";
+import { FaBars, FaEye, FaTimes, FaWallet } from 'react-icons/fa';
 import { RiDashboardLine } from "react-icons/ri";
 import { PiChartPolarBold } from "react-icons/pi";
 import { GiChart } from "react-icons/gi";
+import { usePathname } from 'next/navigation'
 
 export default function Sidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const currentPath = usePathname()
+  console.log(currentPath)
 
-  const logOut = ()=>{
+  const logOut = () => {
     // Remove the token and auth data from localStorage
     localStorage.removeItem('token');
     localStorage.removeItem('authData');
 
     // Remove the token and auth data from cookies
     Cookies.remove('authData');
-    location.href = "/"
-  }
-  
+    location.href = "/";
+  };
+
+  const getLinkClassName = (path) => {
+    return `flex items-center justify-start text-xl p-2 mt-3 border-2 border-neutral-800 rounded-full ${
+      currentPath === path
+        ? "bg-white text-black"
+        : "text-white"
+    }`;
+  };
+
   return (
     <>
       {/* Sidebar for larger screens */}
@@ -57,33 +68,41 @@ export default function Sidebar() {
             </button>
           </div>
           <nav className="flex flex-col flex-1 w-64 ps-2 mt-6 text-white">
-            <a href="/user/dashboard" className="flex items-center justify-start text-xl p-2 mt-3 rounded-full bg-blue-500 border border-white text-black ">
+            <Link href="/user/dashboard" className={getLinkClassName('/user/dashboard')}>
               <span className="p-4 border rounded-full bg-black text-white">
-              <RiDashboardLine className="w-6 h-6" />
+                <RiDashboardLine className="w-6 h-6" />
               </span>
               <span className="ps-4">Dashboard</span>
-            </a>
-            <a href="/user/trading" className="flex items-center justify-start text-xl p-6 mt-3 rounded-full ">
+            </Link>
+            <Link href="/user/trading" className={getLinkClassName('/user/trading')}>
+              <span className="p-4 border rounded-full bg-black text-white">
               <GiChart className="w-6 h-6" />
+              </span>
               <span className="ps-4">Trading</span>
-            </a>
-            <a href="/user/wallet" className="flex items-center justify-start text-xl p-6 mt-3 rounded-full ">
+            </Link>
+            <Link href="/user/wallet" className={getLinkClassName('/user/wallet')}>
+              <span className="p-4 border rounded-full bg-black text-white">
               <FaWallet className="w-6 h-6" />
+              </span>
               <span className="ps-4">Wallet</span>
-            </a>
-            <a href="/user/portfolio" className="flex items-center justify-start text-xl p-6 mt-3 rounded-full ">
+            </Link>
+            <Link href="/user/portfolio" className={getLinkClassName('/user/portfolio')}>
+              <span className="p-4 border rounded-full bg-black text-white">
               <PiChartPolarBold className="w-6 h-6" />
+              </span>
               <span className="ps-4">Portfolio</span>
-            </a>
-            <a href="/user/watchlist" className="flex items-center justify-start text-xl p-6 mt-3 rounded-full ">
+            </Link>
+            <Link href="/user/watchlist" className={getLinkClassName('/user/watchlist')}>
+              <span className="p-4 border rounded-full bg-black text-white">
               <FaEye className="w-6 h-6" />
+              </span>
               <span className="ps-4">Watchlist</span>
-            </a>
+            </Link>
             {/* Add more navigation items here */}
           </nav>
           <div className="flex-shrink-0 p-4">
             <button 
-              onClick={()=>logOut()}
+              onClick={logOut}
               className="flex items-center space-x-2 text-white hover:text-red-500">
               <FaTimes className="w-6 h-6" />
               <span className="ps-4">Logout</span>

@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import UserHeader from '../_components/userheader';
-import AccountInfo from "../_components/accountInfo";
-import AccountSetting from "../_components/accountSetting";
+import AccountInfo from "./accountInfo";
+import AccountSetting from "./accountSetting";
 
 export default function UserProfile() {
   const [userData, setUserData] = useState(null);
