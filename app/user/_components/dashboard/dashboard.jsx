@@ -1,41 +1,44 @@
-// pages/your-page.js
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import UserHeader from "../_components/userheader";
-import CoinCard from './coinsCard'; // Adjust the path as needed
+import UserHeader from "../userheader";
+import Loader from "../../../_components/loader";
+import CryptoMiniCharts from './CryptoMiniCharts'; 
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 
 const Page = () => {
     const [trendingCoins, setTrendingCoins] = useState([]);
     const [recentlyAddedCoins, setRecentlyAddedCoins] = useState([]);
     const [error, setError] = useState('');
+    const [isLoading, SetIsLoading] = useState(true)
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch("https://api.coinranking.com/v2/coins?limit=6", {
+                headers: {
+                    'x-access-token': 'coinranking3d430304bd116dd46418a28342ed1db304c8d682d22ff9f6'
+                }
+            });
+            const data = await response.json();
+            
+            if (response.ok) {
+                const trending = data.data.coins.slice(0, 3);
+                const recentlyAdded = data.data.coins.slice(3, 6);
+                setTrendingCoins(trending);
+                setRecentlyAddedCoins(recentlyAdded);
+            } else {
+                setError(data.message || 'Failed to fetch coin data');
+            }
+        } catch (error) {
+            console.error('Error fetching coin data:', error);
+            setError('An error occurred while fetching data.');
+        }
+    };
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch("https://api.coinranking.com/v2/coins?limit=6", {
-                    headers: {
-                        'x-access-token': 'coinranking3d430304bd116dd46418a28342ed1db304c8d682d22ff9f6'
-                    }
-                });
-                const data = await response.json();
-                
-                if (response.ok) {
-                    const trending = data.data.coins.slice(0, 3);
-                    const recentlyAdded = data.data.coins.slice(3, 6);
-                    setTrendingCoins(trending);
-                    setRecentlyAddedCoins(recentlyAdded);
-                } else {
-                    setError(data.message || 'Failed to fetch coin data');
-                }
-            } catch (error) {
-                console.error('Error fetching coin data:', error);
-                setError('An error occurred while fetching data.');
-            }
-        };
-
+        SetIsLoading(true)
         fetchData();
+        SetIsLoading(false)
     }, []);
 
     const renderCoins = (coins, type) => (
@@ -59,6 +62,8 @@ const Page = () => {
     return (
         <div className="text-gray-100 p-6 rounded-lg shadow-lg lg:p-20 lg:pt-4">
             <UserHeader title={"Dashboard"} />
+            
+            <Loader isLoading={isLoading} />
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-4">
                 <div className="w-full p-8 bg-neutral-900 rounded-lg shadow-lg">
@@ -71,30 +76,14 @@ const Page = () => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-4">
                 <div className="w-full p-8 bg-neutral-900 rounded-lg shadow-lg">
-                    <h2 className="text-lg font-bold text-white mb-4">Trending Coins with Chart</h2>
-                    {trendingCoins.length > 0 ? (
-                        <div>
-                            {trendingCoins.map((coin) => (
-                                <CoinCard key={coin.uuid} coin={coin} />
-                            ))}
-                        </div>
-                    ) : (
-                        <p className="text-red-500">{error || "Loading..."}</p>
-                    )}
+                    <h2 className="text-lg font-bold text-white mb-4">Trending Coins Chart</h2>
+                    <CryptoMiniCharts symbols={trendingCoins.map(coin => `CRYPTO:${coin.symbol}USD`)} />
                 </div>
                 <div className="w-full p-8 bg-neutral-900 rounded-lg shadow-lg">
-                    <h2 className="text-lg font-bold text-white mb-4">Recently Added Coins with Chart</h2>
-                    {recentlyAddedCoins.length > 0 ? (
-                        <div>
-                            {recentlyAddedCoins.map((coin) => (
-                                <CoinCard key={coin.uuid} coin={coin} />
-                            ))}
-                        </div>
-                    ) : (
-                        <p className="text-red-500">{error || "Loading..."}</p>
-                    )}
+                    <h2 className="text-lg font-bold text-white mb-4">Recently Added Coins Chart</h2>
+                    <CryptoMiniCharts symbols={recentlyAddedCoins.map(coin => `CRYPTO:${coin.symbol}USD`)} />
                 </div>
             </div>
         </div>

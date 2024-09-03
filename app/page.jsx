@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Nav from "./_components/guestNav";
 import FaqSection from "./_components/faqSection"
+import AnimationImage from "./_components/animationImage"
 import { FaTelegram } from "react-icons/fa";
 import { FaLock, FaBolt, FaDollarSign, FaChartLine, FaBrain, FaExchangeAlt } from "react-icons/fa";
 
@@ -24,48 +25,12 @@ export default function Home() {
           <div className="flex justify-center mt-4">
             <button className="bg-black text-white rounded-full p-4">Explore Crypto</button>
           </div>
+
+          {/* Animated Images */}
+          <AnimationImage />
+
         </div>
 
-        {/* animated images */}
-        <div className="banner">
-          <div
-            className="slider"
-            style={{ "--quantity": 10 }}
-          >
-            <div className="item" style={{ "--position": 1 }}>
-              <img src="assets/images/binance.svg" alt="" />
-            </div>
-            <div className="item" style={{ "--position": 2 }}>
-              <img src="assets/images/ethereum.svg" alt="" />
-            </div>
-            <div className="item" style={{ "--position": 3 }}>
-              <img src="assets/images/eos.svg" alt="" />
-            </div>
-            <div className="item" style={{ "--position": 4 }}>
-              <img src="assets/images/tron.svg" alt="" />
-            </div>
-            <div className="item" style={{ "--position": 5 }}>
-              <img src="assets/images/metamask.svg" alt="" />
-            </div>
-            <div className="item" style={{ "--position": 6 }}>
-              <img src="assets/images/btc.png" alt="" />
-            </div>
-            <div className="item" style={{ "--position": 7 }}>
-              <img src="assets/images/opensea.svg" alt="" />
-            </div>
-            <div className="item" style={{ "--position": 8 }}>
-              <img src="assets/images/telegram.svg" alt="" />
-            </div>
-            <div className="item" style={{ "--position": 9 }}>
-              <img src="assets/images/solana.svg" alt="" />
-            </div>
-            <div className="item" style={{ "--position": 10 }}>
-              <img src="assets/images/tether.svg" alt="" />
-            </div>
-          </div>
-
-          
-        </div>
 
         {/* Telegram CTA */}
         <section className="text-center mb-20">

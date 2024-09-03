@@ -36,12 +36,12 @@ export default function Sidebar() {
     <>
       {/* Sidebar for larger screens */}
       <div
-        className={`fixed inset-y-0 z-10 flex flex-col w-80 transition-transform duration-300 ${
+        className={`fixed inset-y-0 z-10 flex flex-col w-80 transition-transform duration-300 bg-neutral-950 ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0`}
       >
         {/* Curvy shape */}
-        <svg
+        {/* <svg
           className="absolute inset-0 w-full h-full"
           style={{ filter: "drop-shadow(10px 0 10px #00000030)", color: "#151617" }}
           preserveAspectRatio="none"
@@ -50,7 +50,7 @@ export default function Sidebar() {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path d="M268.487 0H0V800H247.32C207.957 725 207.975 492.294 268.487 367.647C329 243 314.906 53.4314 268.487 0Z" />
-        </svg>
+        </svg> */}
         {/* Sidebar content */}
         <div className="z-10 flex flex-col flex-1">
           <div className="flex items-center justify-between flex-shrink-0 w-64 p-4">
@@ -68,7 +68,7 @@ export default function Sidebar() {
             </button>
           </div>
           <nav className="flex flex-col flex-1 w-64 ps-2 mt-6 text-white">
-            <Link href="/user/dashboard" className={getLinkClassName('/user/dashboard')}>
+            <Link href="/user" className={getLinkClassName('/user')}>
               <span className="p-4 border rounded-full bg-black text-white">
                 <RiDashboardLine className="w-6 h-6" />
               </span>
@@ -116,7 +116,6 @@ export default function Sidebar() {
         className="fixed p-2 text-white bg-black rounded-lg top-5 left-5 md:hidden"
       >
         <FaBars className="w-6 h-6" />
-        <span className="sr-only">Open menu</span>
       </button>
     </>
   );
