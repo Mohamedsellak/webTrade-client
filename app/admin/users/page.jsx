@@ -59,17 +59,17 @@ const Users = () => {
     return (
         <div className="bg-background text-foreground p-6 rounded-lg shadow-lg lg:p-20">
             <div className="flex items-center justify-between mb-8">
-                <h2 className="text-4xl font-bold mb-6 text-white">Users</h2>
+                <h2 className="text-4xl mb-6 text-white">Users</h2>
                 <div>
                     <button
                         onClick={handleRefresh}
-                        className="text-base px-5 py-3 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-white transition"
+                        className="text-base px-5 py-3 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-black transition"
                     >
                         Refresh
                     </button>
                     <button
                         onClick={() => setAddModelStatus(true)}
-                        className="text-base ms-2 px-5 py-3 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-white transition"
+                        className="text-base ms-2 px-5 py-3 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-black transition"
                     >
                         Create User
                     </button>
@@ -114,15 +114,9 @@ const Users = () => {
                                     <td className="px-4 py-3">{user.username}</td>
                                     <td className="px-4 py-3">{user.email}</td>
                                     <td className="px-4 py-3">
-                                        {user.verified ? (
-                                            <span className="px-2 py-1 font-semibold leading-tight bg-blue-500 text-white rounded-full">
-                                                Yes
+                                            <span className="px-2 py-1 font-semibold leading-tight bg-white text-blaack rounded-full">
+                                                {user.verified ? "yes" : "No" }
                                             </span>
-                                        ) : (
-                                            <span className="px-2 py-1 font-semibold leading-tight bg-red-500 text-white rounded-full">
-                                                No
-                                            </span>
-                                        )}
                                     </td>
                                     <td className="px-4 py-3">{user.totalBalance}</td>
                                     <td className="px-4 py-3">
@@ -132,13 +126,13 @@ const Users = () => {
                                                     setUser(user)
                                                     setEditModelStatus(true)
                                                 }}
-                                                className="px-4 py-2 text-sm font-medium leading-5 bg-blue-700 text-blue-100 rounded-full hover:bg-blue-800 transition">
+                                                className="px-4 py-2 text-sm font-medium leading-5 bg-white text-black rounded-full">
                                                 Edit
                                             </button>
                                             
                                             <button 
                                                 onClick={() => handleDelete(user._id)}
-                                                className="px-4 py-2 text-sm font-medium leading-5 bg-red-700 text-red-100 rounded-full hover:bg-red-800 transition">
+                                                className="px-4 py-2 text-sm font-medium leading-5 bg-white text-black rounded-full">
                                                 Delete
                                             </button>
                                         </div>

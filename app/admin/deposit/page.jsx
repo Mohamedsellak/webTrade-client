@@ -45,12 +45,7 @@ const Page = () => {
             });
 
             if (response.ok) {
-                setDeposits(prevDeposits =>
-                    prevDeposits.map(user => ({
-                        ...user,
-                        deposit: user.deposit.filter(deposit => deposit._id !== depositId)
-                    }))
-                );
+                fetchData();
             } else {
                 console.error('Failed to delete deposit');
             }
@@ -84,7 +79,7 @@ const Page = () => {
                                     <td className="px-4 py-3">
                                         <div className="flex items-center justify-center space-x-4">
                                             <button 
-                                                className="px-4 py-2 text-sm font-medium leading-5 bg-blue-700 text-blue-100 rounded-full hover:bg-blue-800 transition"
+                                                className="px-4 py-2 text-sm font-medium leading-5 bg-white text-black rounded-full"
                                                 onClick={() => {
                                                     setShowModelStatus(true);
                                                     setDepositInfo({
@@ -100,7 +95,7 @@ const Page = () => {
                                             </button>
                                             <button
                                                 onClick={() => handleDelete(deposit._id, user._id)}
-                                                className="px-4 py-2 text-sm font-medium leading-5 bg-red-700 text-red-100 rounded-full hover:bg-red-800 transition"
+                                                className="px-4 py-2 text-sm font-medium leading-5 bg-white text-black rounded-full"
                                             >
                                                 Delete
                                             </button>
@@ -118,7 +113,7 @@ const Page = () => {
     return (
         <div className="bg-background text-foreground p-6 rounded-lg shadow-lg lg:p-20">
             <div className="flex items-center justify-between mb-8">
-                <h2 className="text-4xl font-bold mb-6 text-white">Deposit History</h2> 
+                <h2 className="text-4xl mb-6 text-white">Deposit History</h2> 
                 <button 
                     className="text-base px-5 py-3 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-black" 
                     onClick={handleRefresh}

@@ -21,9 +21,34 @@ const Page = () => {
   const [profitRate, setProfitRate] = useState(timerOptions[0].profitRate);
   const [amount, setAmount] = useState(0);
   const [currentBalance, setCurrentBalance] = useState('$0.00');
+  const [trads, setTrads] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/trads`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': localStorage.getItem("token")
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setTrads(data.trads);
+      } else {
+        console.error('Failed to fetch Trades data');
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   useEffect(() => {
-    setCurrentBalance(JSON.parse(localStorage.getItem("authData")).totalBalance)
+    fetchData();
+    const authData = JSON.parse(localStorage.getItem("authData"));
+    if (authData) {
+      setCurrentBalance(authData.totalBalance);
+    }
     updateTimerValues(selectedTimer);
   }, [selectedTimer]);
 
@@ -40,20 +65,19 @@ const Page = () => {
       <UserHeader title="Trading" />
 
       <div className="grid gap-6 grid-cols-1 xl:grid-cols-2">
-        
         {/* Trade Form */}
         <div className="p-6 sm:p-8 xl:p-10 rounded-xl bg-neutral-900">
           <div className='flex items-center justify-between mb-4'>
             <h2 className="text-lg font-bold">Trade</h2>
             <div className="flex border-2 border-white rounded-full p-2">
               <button 
-                className={`rounded-full px-6 py-2 mr-2 ${selectedAction === 'Buy' ? 'bg-green-500' : ''}`}
+                className={`rounded-full px-6 py-2 mr-2 ${selectedAction === 'Buy' ? 'bg-white text-black' : ''}`}
                 onClick={() => setSelectedAction('Buy')}
               >
                 Buy
               </button>
               <button 
-                className={`rounded-full px-6 py-2 ${selectedAction === 'Sell' ? 'bg-red-500' : ''}`}
+                className={`rounded-full px-6 py-2 ${selectedAction === 'Sell' ? 'bg-white text-black' : ''}`}
                 onClick={() => setSelectedAction('Sell')}
               >
                 Sell
@@ -84,7 +108,7 @@ const Page = () => {
               {timerOptions.map((option, index) => (
                 <button 
                   key={index} 
-                  className={`text-white rounded-full px-4 py-2 mr-2 mb-2 ${selectedTimer === option.label ? 'bg-green-500' : 'bg-zinc-800'}`}
+                  className={`rounded-full px-4 py-2 mr-2 mb-2 ${selectedTimer === option.label ? 'bg-white text-black' : 'bg-zinc-800 text-white'}`}
                   onClick={() => setSelectedTimer(option.label)}
                 >
                   {option.label}
@@ -134,7 +158,37 @@ const Page = () => {
         {/* Trade Operation History */}
         <div className="p-6 sm:p-8 xl:p-10 rounded-xl bg-neutral-900">
           <h2 className="text-2xl font-bold mb-4">Your Operations</h2>
-          <p className="text-muted-foreground">It seems you don’t have any operations yet</p>
+          {
+            trads.length > 0
+            ? (
+              <table className="table-auto w-full">
+                <thead>
+                  <tr>
+                    <th>Market</th>
+                    <th>Time Frame</th>
+                    <th>Amount</th>
+                    <th>Profit Rate</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {trads.map((trade, index) => (
+                    <tr key={index}>
+                      <td>{trade.market}</td>
+                      <td>{trade.timeFrame}</td>
+                      <td>{trade.amount}</td>
+                      <td>{trade.profitRate}</td>
+                      <td>{trade.status}</td>
+                      <td>{new Date(trade.date).toLocaleString()}</td> {/* Assuming date is stored as a string */}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p className="text-muted-foreground">It seems you don’t have any operations yet</p>
+            )
+          }
         </div>
       </div>
     </div>

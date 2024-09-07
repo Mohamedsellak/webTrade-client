@@ -1,15 +1,14 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import UserHeader from "../_components/userheader";
-import DepositModel from "../_components/models/depositModel";
-import WithdrawModel from "../_components/models/withdrawModel";
+import DepositModel from "../_components/models/deposit/depositModel";
+import WithdrawModel from "../_components/models/withdraw/withdrawModel";
 
 const Page = () => {
     const [depositData, setDepositData] = useState([]);
     const [withdrawData, setWithdrawData] = useState([]);
     const [depositModelStatus, setDepositModelStatus] = useState(false);
     const [withdrawModelStatus, setWithdrawModelStatus] = useState(false);
-    const [error, setError] = useState('');
 
     const fetchData = async () => {
         try {
@@ -70,13 +69,7 @@ const Page = () => {
                                     <td className="px-4 py-3">{item.date}</td>
                                     <td className="px-4 py-3">
                                         <span
-                                            className={`px-2 py-1 font-semibold leading-tight rounded-full ${
-                                                item.status === 'approved'
-                                                    ? 'bg-blue-500 text-white'
-                                                    : item.status === 'pending'
-                                                    ? 'bg-yellow-500 text-white'
-                                                    : 'bg-red-500 text-white'
-                                            }`}
+                                            className="px-2 py-1 font-semibold leading-tight rounded-full text-black bg-white"
                                         >
                                             {item.status}
                                         </span>

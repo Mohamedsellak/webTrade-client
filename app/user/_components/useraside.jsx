@@ -12,7 +12,7 @@ import { usePathname } from 'next/navigation'
 export default function Sidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const currentPath = usePathname()
-  console.log(currentPath)
+  // console.log(currentPath)
 
   const logOut = () => {
     // Remove the token and auth data from localStorage
@@ -52,12 +52,12 @@ export default function Sidebar() {
           <path d="M268.487 0H0V800H247.32C207.957 725 207.975 492.294 268.487 367.647C329 243 314.906 53.4314 268.487 0Z" />
         </svg> */}
         {/* Sidebar content */}
-        <div className="z-10 flex flex-col flex-1">
+        <div className="z-10 flex flex-col flex-1 items-center">
           <div className="flex items-center justify-between flex-shrink-0 w-64 p-4">
             {/* Logo */}
-            <Link href="#" className="py-4 flex items-center justify-center">
+            <Link href="/user" className="py-4 flex items-center justify-center">
               <Image src="/assets/images/icon.png" height={40} width={40} alt="Logo" />
-              <span className="ps-4 text-2xl text-white font-bold">WebTrade</span>
+              <span className="ps-4 text-2xl text-white font-bold">PrimeWeb</span>
             </Link>
             {/* Close btn */}
             <button
@@ -67,44 +67,47 @@ export default function Sidebar() {
               <FaTimes className="w-6 h-6" />
             </button>
           </div>
+
           <nav className="flex flex-col flex-1 w-64 ps-2 mt-6 text-white">
             <Link href="/user" className={getLinkClassName('/user')}>
-              <span className="p-4 border rounded-full bg-black text-white">
+              <span className="p-4 border-2 rounded-full bg-black text-white">
                 <RiDashboardLine className="w-6 h-6" />
               </span>
               <span className="ps-4">Dashboard</span>
             </Link>
             <Link href="/user/trading" className={getLinkClassName('/user/trading')}>
-              <span className="p-4 border rounded-full bg-black text-white">
+              <span className="p-4 border-2 rounded-full bg-black text-white">
               <GiChart className="w-6 h-6" />
               </span>
               <span className="ps-4">Trading</span>
             </Link>
             <Link href="/user/wallet" className={getLinkClassName('/user/wallet')}>
-              <span className="p-4 border rounded-full bg-black text-white">
+              <span className="p-4 border-2 rounded-full bg-black text-white">
               <FaWallet className="w-6 h-6" />
               </span>
               <span className="ps-4">Wallet</span>
             </Link>
             <Link href="/user/portfolio" className={getLinkClassName('/user/portfolio')}>
-              <span className="p-4 border rounded-full bg-black text-white">
+              <span className="p-4 border-2 rounded-full bg-black text-white">
               <PiChartPolarBold className="w-6 h-6" />
               </span>
               <span className="ps-4">Portfolio</span>
             </Link>
             <Link href="/user/watchlist" className={getLinkClassName('/user/watchlist')}>
-              <span className="p-4 border rounded-full bg-black text-white">
+              <span className="p-4 border-2 rounded-full bg-black text-white">
               <FaEye className="w-6 h-6" />
               </span>
               <span className="ps-4">Watchlist</span>
             </Link>
             {/* Add more navigation items here */}
           </nav>
-          <div className="flex-shrink-0 p-4">
+          <div>
             <button 
               onClick={logOut}
-              className="flex items-center space-x-2 text-white hover:text-red-500">
-              <FaTimes className="w-6 h-6" />
+              className="flex items-center justify-start text-xl rounded-full bg-white text-black mb-4 p-2 w-64 ps-2 hover:text-red-500">
+              <span className="p-4 border-2 rounded-full bg-black text-white">
+                <FaTimes className="w-6 h-6" />
+              </span>
               <span className="ps-4">Logout</span>
             </button>
           </div>

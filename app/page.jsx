@@ -8,7 +8,7 @@ import { FaLock, FaBolt, FaDollarSign, FaChartLine, FaBrain, FaExchangeAlt } fro
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-cover bg-white">
+    <main className="min-h-screen bg-cover bg-white font-sans">
       <Nav />
       <div className="mx-auto">
 

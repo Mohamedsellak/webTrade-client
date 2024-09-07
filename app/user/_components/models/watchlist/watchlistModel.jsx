@@ -49,9 +49,9 @@ export default function Deposit({ isOpenModel, onClose,refresh }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center w-full h-full max-h-full bg-gray-900 bg-opacity-70">
-      <div className="p-4 w-full max-w-2xl rounded-2xl shadow-lg shadow-gray-600" style={{ backgroundColor: "#212325" }}>
-        <div className="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
+    <div className="fixed inset-0 z-50 flex items-center justify-center w-full h-full max-h-full bg-black bg-opacity-80">
+      <div className="p-4 w-full max-w-2xl rounded-2xl shadow-lg shadow-gray-600 bg-black border-2 border-white">
+        <div className="flex items-center justify-between p-4 border-b rounded-t ">
           <h3 className="text-3xl font-semibold text-white">
             Withdraw Funds
           </h3>
@@ -75,7 +75,7 @@ export default function Deposit({ isOpenModel, onClose,refresh }) {
         <div className="p-4 space-y-4">
           <form onSubmit={handleSubmit} className="mt-6">
             <div className="mb-4">
-              <label htmlFor="address" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label htmlFor="address" className="block text-sm font-medium text-zinc-300">
                 Wallet Address
               </label>
               <input
@@ -84,13 +84,13 @@ export default function Deposit({ isOpenModel, onClose,refresh }) {
                 value={walletAddress}
                 onChange={(e) => setWalletAddress(e.target.value)}
                 placeholder="Enter wallet address"
-                className="bg-transparent mt-2 p-3 border-2 border-blue-900 rounded-full w-full outline-none focus:ring focus:ring-blue-500"
+                className="bg-transparent mt-2 p-3 border-2 border-zinc-700 rounded-full w-full outline-none focus:ring focus:ring-white"
                 required
               />
             </div>
 
             <div className="mb-4">
-              <label htmlFor="amount" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label htmlFor="amount" className="block text-sm font-medium text-zinc-300">
                 Amount
               </label>
               <input
@@ -99,14 +99,14 @@ export default function Deposit({ isOpenModel, onClose,refresh }) {
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="Enter amount"
-                className="bg-transparent mt-2 p-3 border-2 border-blue-900 rounded-full w-full outline-none focus:ring focus:ring-blue-500"
+                className="bg-transparent mt-2 p-3 border-2 border-zinc-700 rounded-full w-full outline-none focus:ring focus:ring-white"
                 required
               />
             </div>
 
             <button
               type="submit"
-              className="mt-8 p-4 bg-blue-500 text-white rounded-full w-full hover:bg-blue-400 flex justify-center items-center"
+              className="mt-8 p-4 bg-white text-black rounded-full w-full hover:bg-slate-200 flex justify-center items-center"
             >
               Confirm Withdraw
             </button>

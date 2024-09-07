@@ -3,38 +3,40 @@ import { FaTimes } from 'react-icons/fa';
 import { FaRegCopy } from 'react-icons/fa';
 
 export default function Deposit({ isOpenModel, onClose ,refresh}) {
+  if (!isOpenModel) return null;
+
+  
   const [wallets, setWallets] = useState([]);
   const [amount, setAmount] = useState('');
   const [proofImage, setProofImage] = useState(null);
   const [proofImagePath, setProofImagePath] = useState('');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem("token") || "";
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wallets`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'auth-token': token,
-          },
-        });
+  const fetchData = async () => {
+    try {
+      const token = localStorage.getItem("token") || "";
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wallets`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': token,
+        },
+      });
 
-        if (response.ok) {
-          const data = await response.json();
-          setWallets(data);
-        } else {
-          console.log(await response.json());
-        }
-      } catch (error) {
-        console.error('Fetching data failed:', error);
+      if (response.ok) {
+        const data = await response.json();
+        setWallets(data);
+      } else {
+        console.log(await response.json());
       }
-    };
+    } catch (error) {
+      console.error('Fetching data failed:', error);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 
-  if (!isOpenModel) return null;
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -86,9 +88,9 @@ export default function Deposit({ isOpenModel, onClose ,refresh}) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center w-full h-full max-h-full bg-gray-900 bg-opacity-70">
-      <div className="p-4 w-full max-w-2xl rounded-2xl shadow-lg shadow-gray-600" style={{ backgroundColor:"#212325" }}>
-        <div className="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
+    <div className="fixed inset-0 z-50 flex items-center justify-center w-full h-full max-h-full bg-gray-900 bg-opacity-80">
+      <div className="p-4 w-full max-w-2xl rounded-2xl shadow-lg shadow-gray-600 bg-black border-2">
+        <div className="flex items-center justify-between p-4 border-b rounded-t">
           <h3 className="text-3xl font-semibold text-white">
             Deposit Funds
           </h3>
@@ -134,7 +136,7 @@ export default function Deposit({ isOpenModel, onClose ,refresh}) {
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="Enter amount"
-                className="bg-transparent mt-2 p-3 border-2 border-blue-900 rounded-full w-full outline-none focus:ring focus:ring-blue-500"
+                className="bg-transparent mt-2 p-3 border-2 border-zinc-700 rounded-full w-full outline-none focus:ring focus:ring-white"
                 required
               />
             </div>
@@ -147,7 +149,7 @@ export default function Deposit({ isOpenModel, onClose ,refresh}) {
                 type="file"
                 id="proofImage"
                 onChange={handleFileChange}
-                className="bg-transparent mt-2 p-3 border-2 border-blue-900 rounded-full w-full outline-none focus:ring focus:ring-blue-500"
+                className="bg-transparent mt-2 p-3 border-2 border-zinc-700 rounded-full w-full outline-none focus:ring focus:ring-white"
                 accept="image/*"
                 required
               />
@@ -160,7 +162,7 @@ export default function Deposit({ isOpenModel, onClose ,refresh}) {
 
             <button
               type="submit"
-              className="mt-8 p-4 bg-blue-500 text-white rounded-full w-full hover:bg-blue-400 flex justify-center items-center"
+              className="mt-8 p-4 border-2 border-white bg-white text-black rounded-full w-full hover:bg-black hover:text-white flex justify-center items-center"
             >
               Confirm Deposit
             </button>

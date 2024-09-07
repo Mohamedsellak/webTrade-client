@@ -10,14 +10,14 @@ const CryptoMiniCharts = ({ symbols }) => {
                 script.async = true;
                 script.innerHTML = JSON.stringify({
                     symbol,
-                    width: '100%',
-                    height: '100%',
+                    width: '400',
+                    height: '300',
                     locale: 'en',
                     dateRange: '12M',
                     colorTheme: 'dark',
-                    trendLineColor: 'rgba(152, 0, 255, 1)',
-                    underLineColor: 'rgba(152, 0, 255, 1)',
-                    underLineBottomColor: 'rgba(0, 255, 255, 0)',
+                    trendLineColor: 'rgba(0,255,79,0.5)',
+                    underLineColor: 'rgba(38,38,39,255)',
+                    underLineBottomColor: 'rgba(26,27,28,255)',
                     isTransparent: false,
                     autosize: true,
                     largeChartUrl: ''
@@ -45,14 +45,14 @@ const CryptoMiniCharts = ({ symbols }) => {
     }, [symbols]);
 
     return (
-        <div className="flex flex-wrap gap-4 justify-center">
+        <div className="whitespace-nowrap space-x-4">
             {symbols.map((symbol, index) => (
                 <div
                     key={index}
                     id={`tradingview-widget-container-${symbol}`}
-                    className="w-full h-60 overflow-hidden bg-neutral-800 rounded-lg shadow-lg p-2"
+                    className="inline-block border border-white bg-neutral-800 rounded-3xl shadow-lg overflow-hidden"
                 >
-                    <div className="tradingview-widget-container__widget h-full"></div>
+                    {/* TradingView Widget will be appended here */}
                 </div>
             ))}
         </div>

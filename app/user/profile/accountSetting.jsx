@@ -26,7 +26,7 @@ export default function AccountSettings() {
       <h3 className="text-xl font-semibold text-primary mb-6">Account Settings</h3>
       <div className='grid grid-col-1 2xl:grid-cols-2 gap-4'>
         {/* Email Update Form */}
-        <div className='p-10 rounded-xl mb-4' style={{ backgroundColor:"#212325" }}>
+        <div className='p-10 rounded-xl mb-4 bg-neutral-900' >
           <h4 className="text-lg font-semibold text-primary mb-4">Update Email</h4>
           <form onSubmit={handleEmailSubmit}>
             <div className="mb-4">
@@ -38,7 +38,7 @@ export default function AccountSettings() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your new email"
-                className="bg-transparent mt-2 p-4 border-2 border-blue-900 rounded-full w-full outline-none focus:ring focus:ring-blue-500"
+                className="bg-transparent mt-2 p-4 border-2 border-zinc-700 rounded-full w-full outline-none focus:ring focus:ring-white"
                 required
               />
             </div>
@@ -51,13 +51,13 @@ export default function AccountSettings() {
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 placeholder="Enter your current password"
-                className="bg-transparent mt-2 p-4 border-2 border-blue-900 rounded-full w-full outline-none focus:ring focus:ring-blue-500"
+                className="bg-transparent mt-2 p-4 border-2 border-zinc-700 rounded-full w-full outline-none focus:ring focus:ring-white"
                 required
               />
             </div>
             <button
               type="submit"
-              className="w-full bg-blue-500 text-white py-3 rounded-full hover:bg-blue-600 transition"
+              className="w-full bg-white text-black py-3 rounded-full "
             >
               Update Email
             </button>
@@ -65,7 +65,7 @@ export default function AccountSettings() {
         </div>
 
         {/* Password Update Form */}
-        <div className='p-10 rounded-xl mb-4' style={{ backgroundColor:"#212325" }}>
+        <div className='p-10 rounded-xl mb-4 bg-neutral-900' >
           <h4 className="text-lg font-semibold text-primary mb-4">Update Password</h4>
           <form onSubmit={handlePasswordSubmit}>
             <div className="mb-4">
@@ -77,7 +77,7 @@ export default function AccountSettings() {
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 placeholder="Enter your current password"
-                className="bg-transparent mt-2 p-4 border-2 border-blue-900 rounded-full w-full outline-none focus:ring focus:ring-blue-500"
+                className="bg-transparent mt-2 p-4 border-2 border-zinc-700 rounded-full w-full outline-none focus:ring focus:ring-white"
                 required
               />
             </div>
@@ -91,7 +91,7 @@ export default function AccountSettings() {
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="Enter your new password"
-                className="bg-transparent mt-2 p-4 border-2 border-blue-900 rounded-full w-full outline-none focus:ring focus:ring-blue-500"
+                className="bg-transparent mt-2 p-4 border-2 border-zinc-700 rounded-full w-full outline-none focus:ring focus:ring-white"
                 required
               />
             </div>
@@ -105,13 +105,13 @@ export default function AccountSettings() {
                 value={confirmNewPassword}
                 onChange={(e) => setConfirmNewPassword(e.target.value)}
                 placeholder="Confirm your new password"
-                className="bg-transparent mt-2 p-4 border-2 border-blue-900 rounded-full w-full outline-none focus:ring focus:ring-blue-500"
+                className="bg-transparent mt-2 p-4 border-2 border-zinc-700 rounded-full w-full outline-none focus:ring focus:ring-white"
                 required
               />
             </div>
             <button
               type="submit"
-              className="w-full bg-blue-500 text-white py-3 rounded-full hover:bg-blue-600 transition"
+              className="w-full bg-white text-black py-3 rounded-full "
             >
               Update Password
             </button>
@@ -120,7 +120,7 @@ export default function AccountSettings() {
 
 
         {/* Account Deletion Form */}
-        <div className='p-10 rounded-xl mb-4' style={{ backgroundColor:"#212325" }}>
+        <div className='p-10 rounded-xl mb-4 bg-neutral-900' >
           <h4 className="text-lg font-semibold text-primary mb-4">Delete Account</h4>
           <form onSubmit={handleDeleteAccount}>
             <div className="mb-4">

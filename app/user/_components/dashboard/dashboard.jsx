@@ -10,7 +10,7 @@ const Page = () => {
     const [trendingCoins, setTrendingCoins] = useState([]);
     const [recentlyAddedCoins, setRecentlyAddedCoins] = useState([]);
     const [error, setError] = useState('');
-    const [isLoading, SetIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(true);
 
     const fetchData = async () => {
         try {
@@ -32,19 +32,19 @@ const Page = () => {
         } catch (error) {
             console.error('Error fetching coin data:', error);
             setError('An error occurred while fetching data.');
+        } finally {
+            setIsLoading(false);
         }
     };
 
     useEffect(() => {
-        SetIsLoading(true)
         fetchData();
-        SetIsLoading(false)
     }, []);
 
     const renderCoins = (coins, type) => (
         <ul className="mt-4">
             {coins.map((coin) => (
-                <li key={coin.uuid} className="flex items-center justify-between p-3 bg-muted rounded-full bg-neutral-800 mb-2">
+                <li key={coin.uuid} className="flex items-center justify-between p-4 bg-muted rounded-full bg-neutral-800 mb-3 border border-white">
                     <span className="flex items-center">
                         <img src={coin.iconUrl} alt={coin.name} className="h-6 w-6 mr-2" />
                         <span className="font-semibold">{coin.name}</span>
@@ -52,7 +52,7 @@ const Page = () => {
                     </span>
                     <span className={`flex items-center ${coin.change > 0 ? 'text-green-500' : 'text-red-500'}`}>
                         {coin.change > 0 ? <FaArrowUp /> : <FaArrowDown />} 
-                        {type === 'trending' ? `${coin.change}%` : `$${coin.price}`}
+                        {type === 'trending' ? `${coin.change}%` : `$${parseFloat(coin.price).toFixed(2)}`}
                     </span>
                 </li>
             ))}
@@ -63,29 +63,27 @@ const Page = () => {
         <div className="text-gray-100 p-6 rounded-lg shadow-lg lg:p-20 lg:pt-4">
             <UserHeader title={"Dashboard"} />
             
-            <Loader isLoading={isLoading} />
+            {isLoading ? <Loader isLoading={isLoading} /> : (
+                <div className="space-y-4">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-4">
+                        <div className="p-8 bg-neutral-900 rounded-lg shadow-lg">
+                            <h2 className="text-xl font-bold text-white mb-4">Trending Coins</h2>
+                            {trendingCoins.length > 0 ? renderCoins(trendingCoins, 'trending') : <p className="text-red-500">{error || "No trending coins available."}</p>}
+                        </div>
+                        <div className="p-8 bg-neutral-900 rounded-lg shadow-lg">
+                            <h2 className="text-xl font-bold text-white mb-4">Recently Added Coins</h2>
+                            {recentlyAddedCoins.length > 0 ? renderCoins(recentlyAddedCoins, 'recentlyAdded') : <p className="text-red-500">{error || "No recently added coins available."}</p>}
+                        </div>
+                    </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-4">
-                <div className="w-full p-8 bg-neutral-900 rounded-lg shadow-lg">
-                    <h2 className="text-xl font-bold text-white mb-4">Trending Coins</h2>
-                    {trendingCoins.length > 0 ? renderCoins(trendingCoins, 'trending') : <p className="text-red-500">{error || "Loading..."}</p>}
+                    <div className="p-8 bg-neutral-900 rounded-lg shadow-lg">
+                        <h2 className="text-lg font-bold text-white mb-4">Trending Coins Chart</h2>
+                            <div className="flex overflow-x-auto space-x-4">
+                                <CryptoMiniCharts symbols={[...trendingCoins, ...recentlyAddedCoins].map(coin => `CRYPTO:${coin.symbol}USD`)} />
+                            </div>
+                    </div>
                 </div>
-                <div className="w-full p-8 bg-neutral-900 rounded-lg shadow-lg">
-                    <h2 className="text-xl font-bold text-white mb-4">Recently Added Coins</h2>
-                    {recentlyAddedCoins.length > 0 ? renderCoins(recentlyAddedCoins, 'recentlyAdded') : <p className="text-red-500">{error || "Loading..."}</p>}
-                </div>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-4">
-                <div className="w-full p-8 bg-neutral-900 rounded-lg shadow-lg">
-                    <h2 className="text-lg font-bold text-white mb-4">Trending Coins Chart</h2>
-                    <CryptoMiniCharts symbols={trendingCoins.map(coin => `CRYPTO:${coin.symbol}USD`)} />
-                </div>
-                <div className="w-full p-8 bg-neutral-900 rounded-lg shadow-lg">
-                    <h2 className="text-lg font-bold text-white mb-4">Recently Added Coins Chart</h2>
-                    <CryptoMiniCharts symbols={recentlyAddedCoins.map(coin => `CRYPTO:${coin.symbol}USD`)} />
-                </div>
-            </div>
+            )}
         </div>
     );
 };
