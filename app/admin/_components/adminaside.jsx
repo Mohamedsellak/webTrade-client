@@ -79,7 +79,7 @@ export default function Sidebar() {
               </span>
               <span className="ps-4">Wallets</span>
             </a>
-            <a href="#" className={getLinkClassName('/admin/Admins')}>
+            <a href="/admin/subAdmin" className={getLinkClassName('/admin/subAdmin')}>
               <span className="p-4 border rounded-full bg-black text-white">
               <FaUserShield className="w-6 h-6" />
               </span>
